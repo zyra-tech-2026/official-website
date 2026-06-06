@@ -1,0 +1,459 @@
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@700;800&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html,
+  body {
+    width: 100%;
+    height: 100%;
+    cursor: none;
+    overflow: hidden;
+  }
+
+  #stage {
+    width: 100%;
+    height: 100%;
+    min-height: 100%;
+    background: #050510;
+    position: relative;
+    overflow: hidden;
+    font-family: 'Syne', sans-serif;
+    cursor: none;
+    border-radius: 32px;
+  }
+
+  canvas#grid {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+  }
+
+  .scene {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column;
+    opacity: 0;
+    pointer-events: none;
+    transition: none;
+  }
+
+  .scene.active { opacity: 1; }
+
+  .big-word {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: clamp(48px, 10vw, 96px);
+    color: #fff;
+    letter-spacing: -2px;
+    line-height: 1;
+    text-align: center;
+  }
+
+  .sub {
+    font-family: 'Space Mono', monospace;
+    font-size: clamp(10px, 1.8vw, 14px);
+    color: rgba(255,255,255,0.45);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-top: 12px;
+  }
+
+  .accent { color: #00FFB2; }
+  .accent2 { color: #FF4D8F; }
+  .accent3 { color: #4D9FFF; }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes popIn {
+    from { opacity: 0; transform: scale(0.6); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+  @keyframes slideLeft {
+    from { opacity: 0; transform: translateX(40px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+  @keyframes glow {
+    0%, 100% { text-shadow: 0 0 20px rgba(0,255,178,0.5); }
+    50% { text-shadow: 0 0 60px rgba(0,255,178,1), 0 0 120px rgba(0,255,178,0.5); }
+  }
+  @keyframes blastOff {
+    0%   { opacity: 0; transform: scale(0.5) translateY(40px); }
+    60%  { opacity: 1; transform: scale(1.08) translateY(-8px); }
+    100% { opacity: 1; transform: scale(1) translateY(0); }
+  }
+  @keyframes orbit {
+    from { transform: rotate(0deg) translateX(60px) rotate(0deg); }
+    to   { transform: rotate(360deg) translateX(60px) rotate(-360deg); }
+  }
+  @keyframes pulse-ring {
+    0%   { transform: scale(0.8); opacity: 0.8; }
+    100% { transform: scale(2.2); opacity: 0; }
+  }
+  @keyframes scanline {
+    from { transform: translateY(-100%); }
+    to   { transform: translateY(400%); }
+  }
+  @keyframes ticker {
+    from { transform: translateX(100%); }
+    to   { transform: translateX(-100%); }
+  }
+  @keyframes counterUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .anim-fadeInUp   { animation: fadeInUp 0.6s cubic-bezier(.22,1,.36,1) forwards; }
+  .anim-fadeInDown { animation: fadeInDown 0.5s cubic-bezier(.22,1,.36,1) forwards; }
+  .anim-popIn      { animation: popIn 0.5s cubic-bezier(.34,1.56,.64,1) forwards; }
+  .anim-slideLeft  { animation: slideLeft 0.5s cubic-bezier(.22,1,.36,1) forwards; }
+  .anim-blastOff   { animation: blastOff 0.7s cubic-bezier(.22,1,.36,1) forwards; }
+
+  .delay-1 { animation-delay: 0.15s; }
+  .delay-2 { animation-delay: 0.35s; }
+  .delay-3 { animation-delay: 0.55s; }
+
+  /* Scene 1 — Spark */
+  #s1 .bulb-wrap {
+    position: relative;
+    width: clamp(80px, 16vw, 130px);
+    height: clamp(80px, 16vw, 130px);
+    margin-bottom: 20px;
+  }
+  #s1 .ring {
+    position: absolute; inset: 0;
+    border-radius: 50%;
+    border: 2px solid rgba(255,220,50,0.6);
+    animation: pulse-ring 1.2s ease-out infinite;
+  }
+  #s1 .ring:nth-child(2) { animation-delay: 0.4s; }
+  #s1 .bulb-icon {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: clamp(40px, 8vw, 70px);
+    filter: drop-shadow(0 0 16px rgba(255,220,50,0.9));
+  }
+
+  /* Scene 2 — Build */
+  #s2 .code-block {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 10px;
+    padding: clamp(10px,2vw,20px) clamp(16px,3vw,28px);
+    font-family: 'Space Mono', monospace;
+    font-size: clamp(9px,1.6vw,13px);
+    color: rgba(255,255,255,0.7);
+    line-height: 1.9;
+    text-align: left;
+    min-width: clamp(200px, 50vw, 400px);
+  }
+  #s2 .code-block .kw  { color: #FF4D8F; }
+  #s2 .code-block .fn  { color: #4D9FFF; }
+  #s2 .code-block .str { color: #00FFB2; }
+  #s2 .code-block .cm  { color: rgba(255,255,255,0.3); }
+
+  /* Scene 3 — Ship */
+  #s3 .rocket-wrap {
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 16px;
+  }
+  #s3 .rocket { font-size: clamp(50px, 10vw, 80px); display: block; }
+
+  /* Scene 4 — Launch / finale */
+  #s4 .metric-row {
+    display: flex; gap: clamp(12px,3vw,28px); margin-top: 20px;
+  }
+  #s4 .metric {
+    text-align: center;
+  }
+  #s4 .m-val {
+    font-family: 'Space Mono', monospace;
+    font-size: clamp(16px, 3.5vw, 30px);
+    font-weight: 700;
+  }
+  #s4 .m-lbl {
+    font-family: 'Space Mono', monospace;
+    font-size: clamp(8px, 1.2vw, 11px);
+    color: rgba(255,255,255,0.35);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+
+  /* Progress bar */
+  #progress-bar {
+    position: absolute;
+    bottom: 0; left: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #00FFB2, #4D9FFF, #FF4D8F);
+    width: 0%;
+    transition: width 0.1s linear;
+    border-radius: 0 2px 2px 0;
+  }
+
+  /* Play button */
+  #play-btn {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(5,5,16,0.6);
+    backdrop-filter: blur(4px);
+    cursor: none;
+    z-index: 10;
+    border-radius: 12px;
+  }
+  #play-btn svg { filter: drop-shadow(0 0 20px rgba(0,255,178,0.7)); }
+  #play-btn:hover svg { transform: scale(1.1); transition: transform 0.2s; }
+
+  /* Scanline overlay */
+  .scanline-overlay {
+    position: absolute; inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    border-radius: 12px;
+  }
+  .scanline-line {
+    position: absolute;
+    width: 100%; height: 2px;
+    background: linear-gradient(transparent, rgba(0,255,178,0.06), transparent);
+    animation: scanline 3s linear infinite;
+  }
+
+  /* Ticker */
+  #ticker-wrap {
+    position: absolute;
+    bottom: 10px; left: 0; right: 0;
+    overflow: hidden;
+    height: clamp(16px, 3vw, 22px);
+    pointer-events: none;
+  }
+  #ticker-inner {
+    display: flex; gap: 60px;
+    white-space: nowrap;
+    font-family: 'Space Mono', monospace;
+    font-size: clamp(7px, 1.2vw, 10px);
+    color: rgba(255,255,255,0.18);
+    letter-spacing: 2px;
+    animation: ticker 12s linear infinite;
+  }
+</style>
+
+<div id="stage">
+  <canvas id="grid"></canvas>
+
+  <div class="scanline-overlay"><div class="scanline-line"></div></div>
+
+  <!-- Scene 1: Idea -->
+  <div class="scene" id="s1">
+    <div class="bulb-wrap">
+      <div class="ring"></div>
+      <div class="ring"></div>
+      <div class="bulb-icon">💡</div>
+    </div>
+    <div class="big-word anim-fadeInUp"><span class="accent">IDEA</span></div>
+    <div class="sub anim-fadeInUp delay-1">where it all begins</div>
+  </div>
+
+  <!-- Scene 2: Build -->
+  <div class="scene" id="s2">
+    <div style="opacity:0" id="s2-code" class="code-block">
+      <span class="cm">// build something great</span><br>
+      <span class="kw">const</span> product = <span class="fn">build</span>({<br>
+      &nbsp;&nbsp;vision: <span class="str">"world-changing"</span>,<br>
+      &nbsp;&nbsp;stack: <span class="str">"cutting-edge"</span>,<br>
+      &nbsp;&nbsp;team: <span class="str">"unstoppable"</span><br>
+      });
+    </div>
+    <div class="big-word" style="margin-top:14px; opacity:0" id="s2-word"><span class="accent2">BUILD</span></div>
+    <div class="sub" style="opacity:0" id="s2-sub">ship fast. iterate faster</div>
+  </div>
+
+  <!-- Scene 3: Test / Validate -->
+  <div class="scene" id="s3">
+    <div class="rocket-wrap">
+      <span class="rocket anim-popIn">🚀</span>
+    </div>
+    <div class="big-word anim-fadeInUp delay-1"><span class="accent3">TEST</span></div>
+    <div class="sub anim-fadeInUp delay-2">prove it. refine it</div>
+  </div>
+
+  <!-- Scene 4: Launch -->
+  <div class="scene" id="s4">
+    <div class="big-word" id="s4-main" style="opacity:0">
+      <span class="accent">ITS</span> <span style="color:#fff">TIME</span> TO
+    </div>
+    <div class="big-word" id="s4-launch" style="opacity:0; font-size: clamp(64px,13vw,120px); letter-spacing:-4px;">
+      <span class="accent">LAUNCH</span>
+    </div>
+    <div class="metric-row">
+      <div class="metric" id="m1" style="opacity:0">
+        <div class="m-val" style="color:#00FFB2">∞</div>
+        <div class="m-lbl">Possibilities</div>
+      </div>
+      <div class="metric" id="m2" style="opacity:0">
+        <div class="m-val" style="color:#4D9FFF">0→1</div>
+        <div class="m-lbl">Journey</div>
+      </div>
+      <div class="metric" id="m3" style="opacity:0">
+        <div class="m-val" style="color:#FF4D8F">NOW</div>
+        <div class="m-lbl">Go live</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="progress-bar"></div>
+
+  <div id="ticker-wrap">
+    <div id="ticker-inner">
+      IDEA · BUILD · TEST · LAUNCH · INNOVATE · SHIP · GROW · ITERATE · DISRUPT · CREATE ·
+      IDEA · BUILD · TEST · LAUNCH · INNOVATE · SHIP · GROW · ITERATE · DISRUPT · CREATE ·
+    </div>
+  </div>
+
+  <div id="play-btn">
+    <svg width="72" height="72" viewBox="0 0 72 72" fill="none">
+      <circle cx="36" cy="36" r="35" stroke="rgba(0,255,178,0.4)" stroke-width="1"/>
+      <circle cx="36" cy="36" r="27" stroke="rgba(0,255,178,0.2)" stroke-width="1"/>
+      <polygon points="29,22 53,36 29,50" fill="#00FFB2"/>
+    </svg>
+  </div>
+</div>
+
+<div style="display:flex; align-items:center; justify-content:center; gap:10px; margin-top:10px;">
+  <button id="replay-btn" style="display:none; font-family:'Space Mono',monospace; font-size:11px; letter-spacing:2px; text-transform:uppercase; padding:8px 20px; background:transparent; border:1px solid rgba(0,255,178,0.4); color:#00FFB2; border-radius:6px; cursor:none;">↺ Replay</button>
+</div>
+
+<script>
+(function(){
+  const stage = document.getElementById('stage');
+  const playBtn = document.getElementById('play-btn');
+  const progressBar = document.getElementById('progress-bar');
+  const replayBtn = document.getElementById('replay-btn');
+
+  function reportCursorMove(event) {
+    window.parent.postMessage({
+      type: 'custom-cursor-move',
+      x: event.clientX,
+      y: event.clientY
+    }, '*');
+  }
+
+  window.addEventListener('mousemove', reportCursorMove);
+
+  // Grid canvas
+  const canvas = document.getElementById('grid');
+  const ctx = canvas.getContext('2d');
+  function resizeCanvas() {
+    canvas.width = stage.offsetWidth;
+    canvas.height = stage.offsetHeight;
+    drawGrid();
+  }
+  function drawGrid() {
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    ctx.strokeStyle = 'rgba(0,255,178,0.04)';
+    ctx.lineWidth = 1;
+    const step = 40;
+    for(let x=0;x<canvas.width;x+=step){
+      ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,canvas.height); ctx.stroke();
+    }
+    for(let y=0;y<canvas.height;y+=step){
+      ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(canvas.width,y); ctx.stroke();
+    }
+  }
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas);
+
+  const scenes = ['s1','s2','s3','s4'];
+  let currentScene = -1;
+  let timer = null;
+  let startTime = null;
+  const TOTAL = 15000;
+
+  const timeline = [
+    { scene: 0, at: 0, duration: 3500 },
+    { scene: 1, at: 3500, duration: 3500 },
+    { scene: 2, at: 7000, duration: 3500 },
+    { scene: 3, at: 10500, duration: 4500 },
+  ];
+
+  function showScene(idx) {
+    if(idx === currentScene) return;
+    scenes.forEach((id,i) => {
+      const el = document.getElementById(id);
+      if(i === idx) { el.classList.add('active'); }
+      else { el.classList.remove('active'); }
+    });
+    currentScene = idx;
+
+    if(idx === 1) animScene2();
+    if(idx === 3) animScene4();
+  }
+
+  function animScene2() {
+    const code = document.getElementById('s2-code');
+    const word = document.getElementById('s2-word');
+    const sub = document.getElementById('s2-sub');
+    code.style.opacity = '0';
+    word.style.opacity = '0';
+    sub.style.opacity = '0';
+    code.style.animation = 'none'; word.style.animation = 'none'; sub.style.animation = 'none';
+    void code.offsetWidth;
+    code.style.animation = 'fadeInUp 0.6s cubic-bezier(.22,1,.36,1) forwards';
+    setTimeout(()=>{
+      word.style.animation = 'fadeInUp 0.5s cubic-bezier(.22,1,.36,1) forwards';
+    }, 300);
+    setTimeout(()=>{
+      sub.style.animation = 'fadeInDown 0.5s cubic-bezier(.22,1,.36,1) forwards';
+    }, 550);
+  }
+
+  function animScene4() {
+    const main = document.getElementById('s4-main');
+    const launch = document.getElementById('s4-launch');
+    const m1 = document.getElementById('m1');
+    const m2 = document.getElementById('m2');
+    const m3 = document.getElementById('m3');
+    [main,launch,m1,m2,m3].forEach(e=>{ e.style.opacity='0'; e.style.animation='none'; void e.offsetWidth; });
+    main.style.animation = 'fadeInDown 0.5s cubic-bezier(.22,1,.36,1) forwards';
+    setTimeout(()=>{ launch.style.animation = 'blastOff 0.7s cubic-bezier(.22,1,.36,1) forwards'; }, 350);
+    setTimeout(()=>{ m1.style.animation = 'counterUp 0.5s ease forwards'; }, 800);
+    setTimeout(()=>{ m2.style.animation = 'counterUp 0.5s ease forwards'; }, 1000);
+    setTimeout(()=>{ m3.style.animation = 'counterUp 0.5s ease forwards'; }, 1200);
+  }
+
+  function tick() {
+    const elapsed = Date.now() - startTime;
+    const pct = Math.min(elapsed / TOTAL * 100, 100);
+    progressBar.style.width = pct + '%';
+
+    for(let i = timeline.length-1; i >= 0; i--) {
+      if(elapsed >= timeline[i].at) { showScene(timeline[i].scene); break; }
+    }
+
+    if(elapsed < TOTAL) {
+      timer = requestAnimationFrame(tick);
+    } else {
+      replayBtn.style.display = 'inline-block';
+    }
+  }
+
+  function startAnimation() {
+    playBtn.style.display = 'none';
+    replayBtn.style.display = 'none';
+    currentScene = -1;
+    scenes.forEach(id => document.getElementById(id).classList.remove('active'));
+    progressBar.style.width = '0%';
+    startTime = Date.now();
+    if(timer) cancelAnimationFrame(timer);
+    timer = requestAnimationFrame(tick);
+  }
+
+  playBtn.addEventListener('click', startAnimation);
+  replayBtn.addEventListener('click', startAnimation);
+})();
+</script>
