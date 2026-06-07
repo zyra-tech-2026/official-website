@@ -10,12 +10,12 @@ export function CallToAction() {
           Meet founders who want a team that turns good ideas into working products.
         </p>
         <a
-          href="mailto:hello@joelstudios.com"
+          href="mailto:hello@zyra.tech"
           className="mt-8 inline-flex rounded-full bg-cream px-6 py-3 text-xs font-semibold text-ink transition hover:bg-orange"
         >
           Book a free discovery call
         </a>
-        <p className="mt-6 text-xs text-cream/45">or hello@joelstudios.com</p>
+        <p className="mt-6 text-xs text-cream/45">or hello@zyra.tech</p>
       </div>
     </section>
   )

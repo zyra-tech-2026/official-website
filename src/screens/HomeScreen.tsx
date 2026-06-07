@@ -4,6 +4,7 @@ import { Footer } from '../components/Home/Footer'
 import { HeroSection } from '../components/Home/HeroSection'
 import { PartnerBanner } from '../components/Home/PartnerBanner'
 import { ProcessSection } from '../components/Home/ProcessSection'
+import { ScrollReveal } from '../components/Home/ScrollReveal'
 import { ServicesSection } from '../components/Home/ServicesSection'
 import { ShowcaseSection } from '../components/Home/ShowcaseSection'
 import { StatsBar } from '../components/Home/StatsBar'
@@ -13,21 +14,41 @@ export default function HomeScreen() {
   return (
     <main className="min-h-screen overflow-hidden bg-cream text-ink">
       <HeroSection />
-      <StatsBar />
-      <PartnerBanner />
-      <ServicesSection />
-      <ProcessSection />
-      <section className="py-8 sm:py-14">
-        <div className="marquee-track flex w-max whitespace-nowrap text-[72px] font-semibold leading-none text-ink sm:text-[118px] lg:text-[154px]">
-          <span className="pr-8">Design. Build. Scale.</span>
-          <span className="pr-8">Design. Build. Scale.</span>
-        </div>
-      </section>
-      <Differentiators />
-      <Testimonials />
-      <ShowcaseSection />
-      <CallToAction />
-      <Footer />
+      <ScrollReveal>
+        <StatsBar />
+      </ScrollReveal>
+      <ScrollReveal>
+        <PartnerBanner />
+      </ScrollReveal>
+      <ScrollReveal>
+        <ServicesSection />
+      </ScrollReveal>
+      <ScrollReveal>
+        <ProcessSection />
+      </ScrollReveal>
+      <ScrollReveal>
+        <section className="py-8 sm:py-14">
+          <div className="marquee-track flex w-max whitespace-nowrap text-[72px] font-semibold leading-none text-ink sm:text-[118px] lg:text-[154px]">
+            <span className="pr-8">Design. Build. Scale.</span>
+            <span className="pr-8">Design. Build. Scale.</span>
+          </div>
+        </section>
+      </ScrollReveal>
+      <ScrollReveal>
+        <Differentiators />
+      </ScrollReveal>
+      <ScrollReveal>
+        <Testimonials />
+      </ScrollReveal>
+      <ScrollReveal>
+        <ShowcaseSection />
+      </ScrollReveal>
+      <ScrollReveal>
+        <CallToAction />
+      </ScrollReveal>
+      <ScrollReveal>
+        <Footer />
+      </ScrollReveal>
     </main>
   )
 }
