@@ -1,14 +1,14 @@
 import { SectionLabel } from './SectionLabel'
 
 const quotes = [
-  ['JSEL Studios took our idea from a loose direction to a launch plan in weeks. The clarity changed our roadmap.', 'Ayo', 'Founder, VaultFlow'],
-  ['They understood the user flow faster than anyone we had tried. Our team finally knew what to build next.', 'David', 'COO, Sentr'],
-  ['Transparent, calm, and genuinely useful. We shipped the first release with a product direction that felt obvious.', 'Mara', 'Founder, Cartlift'],
+  ['ZYRA took our idea from a loose direction to a launch plan in weeks. The clarity changed our roadmap.', 'Emeka', 'Founder, NUBA'],
+  ['They understood the user flow faster than anyone we had tried. Our team finally knew what to build next.', 'Sruthi', 'COO, Exo-AI'],
+  ['Transparent, calm, and genuinely useful. We shipped the first release with a product direction that felt obvious.', 'Nick', 'Founder, ElderOps'],
 ]
 
 export function Testimonials() {
   return (
-    <section id="faqs" className="mx-auto max-w-6xl px-5 pb-24 sm:px-8">
+    <section id="faqs" className="mx-auto max-w-6xl px-5 pb-24 font-geist sm:px-8">
       <SectionLabel tone="pink">Testimonials</SectionLabel>
       <h2 className="max-w-md text-3xl font-semibold leading-tight sm:text-5xl">
         Don't take

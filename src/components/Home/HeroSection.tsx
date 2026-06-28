@@ -98,7 +98,7 @@ export function HeroSection() {
             <p className="font-['Caveat',cursive] text-[19px] italic text-[#8c8781]">Lagos &middot; Globally</p>
           </div>
 
-          <h1 className="max-w-[1200px] text-[54px] font-semibold leading-none tracking-normal text-black sm:text-[84px] lg:text-[130px]">
+          <h1 className="max-w-[1200px] font-dm-sans text-[54px] font-semibold leading-none tracking-normal text-black sm:text-[84px] lg:text-[130px]">
             We build digital
             <br />
             products that{' '}

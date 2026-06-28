@@ -73,7 +73,7 @@ export function StatsBar() {
   return (
     <section ref={sectionRef} className="border-y border-line bg-[#f6f4ee]">
       <div className="mx-auto max-w-[1200px] px-5 py-16 sm:px-8 lg:px-0">
-        <p className="text-center font-mono text-[12px] uppercase tracking-[0.08em] text-[#77736e]">
+        <p className="text-center font-geist-mono text-[12px] uppercase tracking-[0.08em] text-[#77736e]">
           Trusted by founders shipping in 5 countries
         </p>
 
@@ -109,7 +109,17 @@ export function StatsBar() {
 
             <div>
               <strong className="block text-[44px] font-semibold leading-none tracking-[-0.05em] text-black sm:text-[54px] lg:text-[60px]">
-                Idea <span className="text-[#bdb8b1]">→</span> Live
+                Idea{' '}
+                <svg
+                  aria-hidden="true"
+                  className="inline-block size-[0.72em] align-[-0.04em] text-[#bdb8b1]"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>{' '}
+                Live
               </strong>
               <p className="mt-6 text-[14px] text-[#77736e]">End-to-end engagements</p>
             </div>

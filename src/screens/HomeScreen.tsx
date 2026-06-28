@@ -9,8 +9,10 @@ import { ServicesSection } from '../components/Home/ServicesSection'
 import { ShowcaseSection } from '../components/Home/ShowcaseSection'
 import { StatsBar } from '../components/Home/StatsBar'
 import { Testimonials } from '../components/Home/Testimonials'
+import { useScrollDepth } from '../hooks/useScrollDepth'
 
 export default function HomeScreen() {
+  useScrollDepth()
   return (
     <main className="min-h-screen overflow-hidden bg-cream text-ink">
       <HeroSection />
@@ -40,9 +42,7 @@ export default function HomeScreen() {
       <ScrollReveal>
         <Testimonials />
       </ScrollReveal>
-      <ScrollReveal>
-        <ShowcaseSection />
-      </ScrollReveal>
+      <ShowcaseSection />
       <ScrollReveal>
         <CallToAction />
       </ScrollReveal>
