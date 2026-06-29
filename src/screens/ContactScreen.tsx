@@ -124,7 +124,7 @@ export default function ContactScreen() {
               <input
                 required
                 name="name"
-                placeholder="Adaeze Okonkwo"
+                placeholder="Elijah Johnny"
                 value={form.name}
                 onChange={(e) => handleChange('name', e.target.value)}
                 className="h-12 w-full rounded-[14px] border border-[#dfdcd6] bg-white px-4 text-[14px] outline-none transition focus:border-[#11110f] focus:ring-4 focus:ring-black/5"
@@ -136,7 +136,7 @@ export default function ContactScreen() {
                 required
                 type="email"
                 name="email"
-                placeholder="adaeze@company.com"
+                placeholder="elijah@company.com"
                 value={form.email}
                 onChange={(e) => handleChange('email', e.target.value)}
                 className="h-12 w-full rounded-[14px] border border-[#dfdcd6] bg-white px-4 text-[14px] outline-none transition focus:border-[#11110f] focus:ring-4 focus:ring-black/5"

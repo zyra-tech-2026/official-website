@@ -45,14 +45,23 @@ export function initializeAnalytics(): void {
   script.async = true
   document.head.appendChild(script)
 
-  // Bootstrap the command queue before the script finishes loading
+  // Bootstrap the command queue before the script finishes loading.
+  // CRITICAL: gtag must push the live `arguments` object (not a copied
+  // array) — gtag.js reads the queue expecting arguments-like objects,
+  // and silently ignores plain arrays. This is why Google's official
+  // snippet uses `arguments` rather than rest/spread params.
   window.dataLayer = window.dataLayer ?? []
-  window.gtag = function (...args) {
-    window.dataLayer.push(args)
+  // Signature accepts args for type-checking, but the body pushes the live
+  // `arguments` object — that is what gtag.js expects to find in the queue.
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  function gtag(..._args: unknown[]) {
+    // eslint-disable-next-line prefer-rest-params
+    window.dataLayer.push(arguments)
   }
-  window.gtag('js', new Date())
+  window.gtag = gtag
+  gtag('js', new Date())
   // Disable automatic page_view — we control it manually for accuracy
-  window.gtag('config', GA_ID, { send_page_view: false })
+  gtag('config', GA_ID, { send_page_view: false })
 
   initialized = true
   trackPageView()
