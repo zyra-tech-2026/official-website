@@ -31,7 +31,7 @@ export function Differentiators() {
         <div>
           <p className="mb-6 inline-flex h-[29px] items-center gap-2 rounded-full border border-black/15 bg-white px-3 text-[12px] tracking-[0.05em] text-[#aaa59e] shadow-[0_1px_2px_rgba(0,0,0,0.05)]">
             <span className="size-1.5 rounded-full bg-[#4bb777]" aria-hidden="true" />
-            Why JOEL Studios
+            Why ZYRA
           </p>
           <h2 className="max-w-[500px] text-[42px] font-semibold leading-[1.04] tracking-[-0.045em] text-black sm:text-[52px]">
             What actually
