@@ -1,12 +1,49 @@
 import { motion, useReducedMotion } from 'framer-motion'
+import gearIcon from '../../assets/png/gear.png'
 
 const services = [
-  ['Product Strategy', 'Roadmaps, positioning, and launch plans shaped around the market.'],
-  ['UI/UX Design', 'Interfaces that are clean, accessible, and tuned for real workflows.'],
-  ['Web Development', 'Fast, modern web experiences built with the right stack for your goals.'],
-  ['Mobile Development', 'Native-feeling products designed for everyday use.'],
-  ['Branding & Identity', 'Visual systems that make your product easier to remember.'],
-  ['Deployment & DevOps', 'Release pipelines, analytics, and hosting foundations.'],
+  {
+    title: 'Product Strategy',
+    body: 'Roadmaps, prioritization, and go-to-market planning grounded in real user research.',
+    mark: 'St',
+    color: '#2563eb',
+    bg: '#e9efff',
+  },
+  {
+    title: 'UI/UX Design',
+    body: 'Interfaces that are beautiful, accessible, and built around real user journeys.',
+    mark: 'Ux',
+    color: '#e83e86',
+    bg: '#ffe8f2',
+  },
+  {
+    title: 'Web Development',
+    body: "Fast, modern web applications built with the right stack for your product's scale.",
+    mark: '</>',
+    color: '#16a866',
+    bg: '#e5faee',
+  },
+  {
+    title: 'Mobile Development',
+    body: 'Native and cross-platform mobile apps designed for real-world performance.',
+    mark: '◇',
+    color: '#8b5cf6',
+    bg: '#f0e7ff',
+  },
+  {
+    title: 'Branding & Identity',
+    body: 'Visual systems that express your values and make your product instantly recognizable.',
+    mark: 'Br',
+    color: '#ff7b00',
+    bg: '#fff0e5',
+  },
+  {
+    title: 'Deployment & DevOps',
+    body: 'Reliable infrastructure, CI/CD pipelines, and monitoring so your product stays live.',
+    icon: gearIcon,
+    color: '#ffffff',
+    bg: '#11110f',
+  },
 ]
 
 export function ServicesSection() {
@@ -31,11 +68,11 @@ export function ServicesSection() {
         </p>
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {services.map(([title, body], index) => (
+      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        {services.map((service, index) => (
           <motion.article
-            key={title}
-            className="group rounded-[8px] bg-white p-6 shadow-[0_18px_45px_rgba(17,17,15,0.04)]"
+            key={service.title}
+            className="group min-h-[216px] rounded-[22px] bg-white p-8 shadow-[0_18px_45px_rgba(17,17,15,0.04)]"
             initial={shouldReduceMotion ? false : { opacity: 0, y: 52, scale: 0.96 }}
             whileInView={{ opacity: 1, y: 0, scale: 1 }}
             whileHover={
@@ -50,22 +87,28 @@ export function ServicesSection() {
             }
             viewport={{ once: true, amount: 0.25, margin: '0px 0px -8% 0px' }}
             transition={{
-              duration: shouldReduceMotion ? 0 : 1,
-              delay: shouldReduceMotion ? 0 : index * 0.15,
+              duration: shouldReduceMotion ? 0 : 0.7,
+              delay: shouldReduceMotion ? 0 : index * 0.08,
               ease: [0.16, 1, 0.3, 1],
             }}
           >
-            <span
-              className={`mb-8 grid h-8 w-8 place-items-center rounded-[7px] bg-cream text-xs font-semibold text-orange ${
-                shouldReduceMotion
-                  ? ''
-                  : 'transition-[transform,background-color,color] duration-300 ease-out group-hover:scale-110 group-hover:bg-orange group-hover:text-white'
-              }`}
-            >
-              {String(index + 1).padStart(2, '0')}
-            </span>
-            <h3 className="text-base font-semibold">{title}</h3>
-            <p className="mt-3 text-xs leading-6 text-muted">{body}</p>
+            <div className="mb-5 flex items-start justify-between">
+              <span
+                className={`grid size-11 place-items-center rounded-[12px] text-[16px] font-semibold ${
+                  shouldReduceMotion ? '' : 'transition-transform duration-300 ease-out group-hover:scale-110'
+                }`}
+                style={{ backgroundColor: service.bg, color: service.color }}
+              >
+                {'icon' in service ? (
+                  <img src={service.icon} alt="" className="size-5 brightness-0 invert" aria-hidden="true" />
+                ) : (
+                  service.mark
+                )}
+              </span>
+              <span className="font-geist-mono text-[11px] text-[#aaa59e]">{String(index + 1).padStart(2, '0')}</span>
+            </div>
+            <h3 className="text-[22px] font-semibold leading-tight tracking-[-0.03em] text-black">{service.title}</h3>
+            <p className="mt-5 text-[15px] leading-[1.6] text-[#77736e]">{service.body}</p>
           </motion.article>
         ))}
       </div>

@@ -106,7 +106,15 @@ a {
     width: 68px;
     height: 68px;
     border-width: 1.5px;
+    border-color: white;
     background: white;
+    mix-blend-mode: difference;
+  }
+
+  .custom-cursor.is-interactive.is-solid {
+    border-color: #11110f;
+    background: #11110f;
+    mix-blend-mode: normal;
   }
 
   /* Hide dot when ring is filled — it would compound the blend and look noisy */

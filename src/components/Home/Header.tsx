@@ -106,7 +106,7 @@ export function Header() {
                 <a
                   key={item.label}
                   href={item.href}
-                  className="transition hover:text-orange"
+                  className="rounded-full px-4 py-3 text-[#1d1d1d] transition-colors hover:bg-black hover:text-white focus-visible:bg-black focus-visible:text-white focus-visible:outline-none"
                   onClick={() => trackEvent({ name: 'nav_link_click', params: { label: item.label, destination: item.href } })}
                 >
                   {item.label}
@@ -116,7 +116,7 @@ export function Header() {
 
             <a
               href="/contact"
-              className="hidden whitespace-nowrap rounded-full bg-[#111111] px-5 py-3 text-[15px] font-medium text-white transition hover:bg-orange hover:text-black sm:inline-flex"
+              className="hidden whitespace-nowrap rounded-full bg-[#111111] px-5 py-3 text-[15px] font-medium text-white focus-visible:outline-none sm:inline-flex"
               onClick={() => trackEvent({ name: 'cta_click', params: { cta_name: 'header_book_a_call', destination: '/contact' } })}
             >
               Book a Call ↗
@@ -175,7 +175,8 @@ export function Header() {
 
                 <a
                   href="/contact"
-                  className="mt-2 flex min-h-12 items-center justify-center rounded-[16px] bg-[#111111] px-5 text-[15px] font-medium text-white"
+                  data-cursor-mode="solid"
+                  className="mt-2 flex min-h-12 items-center justify-center rounded-[16px] bg-[#111111] px-5 text-[15px] font-medium text-white transition-colors hover:bg-[#FF7B00] hover:text-white focus-visible:bg-[#FF7B00] focus-visible:text-white focus-visible:outline-none active:text-white visited:text-white"
                   onClick={() => {
                     setMobileMenu(false)
                     trackEvent({ name: 'cta_click', params: { cta_name: 'mobile_book_a_call', destination: '/contact' } })

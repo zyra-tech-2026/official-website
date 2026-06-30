@@ -32,8 +32,10 @@ export function CustomCursor() {
       const target = surface instanceof Element ? surface : null
       const interactive = target?.closest(interactiveSelector) as HTMLElement | null
       const isIframe = target?.tagName === 'IFRAME'
+      const cursorMode = interactive?.dataset.cursorMode
 
       ring.classList.toggle('is-interactive', Boolean(interactive || isIframe))
+      ring.classList.toggle('is-solid', cursorMode === 'solid')
 
       if (targetRef.current && targetRef.current !== interactive) {
         targetRef.current.style.transform = ''
@@ -99,6 +101,7 @@ export function CustomCursor() {
       ring.style.opacity = '0'
       dot.style.opacity = '0'
       ring.classList.remove('is-interactive')
+      ring.classList.remove('is-solid')
 
       if (targetRef.current) {
         targetRef.current.style.transform = ''
