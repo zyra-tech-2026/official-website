@@ -8,30 +8,59 @@ const footerLinks = [
 
 export function Footer() {
   return (
-    <footer className="mx-auto max-w-6xl border-t border-line px-5 py-12 font-geist sm:px-8">
-      <div className="flex flex-col gap-10 sm:flex-row sm:items-start sm:justify-between">
-        <div>
-          <h2 className="text-3xl font-semibold">Design. Build. Scale.</h2>
-          <nav className="mt-8 flex gap-7 text-xs text-muted">
+    <footer className="mx-auto max-w-[1180px] px-5 pb-12 pt-16 font-geist sm:px-8 lg:px-0">
+      <div className="border-y border-line py-16 sm:py-20">
+        <h2 className="text-[44px] font-semibold leading-none tracking-[-0.06em] text-black sm:text-[56px] lg:text-[64px]">
+          Design. Build. Scale.
+        </h2>
+
+        <div className="mt-20 flex flex-col gap-12 sm:flex-row sm:items-end sm:justify-between">
+          <nav className="flex gap-10 text-[15px] text-[#77736e]">
             {footerLinks.map(({ label, href }) => (
               <a
                 key={label}
                 href={href}
-                className="hover:text-ink"
-                onClick={() => trackEvent({ name: 'nav_link_click', params: { label: `footer_${label.toLowerCase()}`, destination: href } })}
+                className="transition hover:text-black"
+                onClick={() =>
+                  trackEvent({
+                    name: 'nav_link_click',
+                    params: { label: `footer_${label.toLowerCase()}`, destination: href },
+                  })
+                }
               >
                 {label}
               </a>
             ))}
           </nav>
+
+          <div className="flex flex-col items-start gap-4 sm:items-end">
+            {/* <a
+              href="/#top"
+              aria-label="ZYRA home"
+              className="inline-flex w-fit items-center transition hover:-translate-y-0.5"
+              onClick={() =>
+                trackEvent({
+                  name: 'nav_link_click',
+                  params: { label: 'footer_logo', destination: '/#top' },
+                })
+              }
+            >
+              <img
+                src={zyraFullLogo}
+                alt="ZYRA - Software that empowers"
+                className="w-[108px] object-contain sm:w-[124px]"
+              />
+            </a> */}
+            <p className="font-geist-mono text-[13px] tracking-[0.08em] text-[#77736e]">
+              We build things that ship.
+            </p>
+          </div>
         </div>
-        <p className="max-w-xs text-xs leading-6 text-muted sm:text-right">
-          We build things that ship. You bring the product, we bring the system.
-        </p>
       </div>
-      <div className="mt-16 flex flex-col gap-3 text-[11px] text-muted sm:flex-row sm:justify-between">
+
+      <div className="mt-16 flex flex-col gap-6 text-[13px] text-[#77736e] sm:flex-row sm:items-center sm:justify-between">
         <p>&copy; 2026 ZYRA. All rights reserved.</p>
-        <p>No cold pitch, just useful products.</p>
+        <p className="font-caveat text-[20px] text-[#77736e]">The next great product is yours.</p>
       </div>
     </footer>
   )

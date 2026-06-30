@@ -1,6 +1,6 @@
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { useEffect, useRef, useState } from 'react'
-import logo from '../../assets/png/zyra-logo.png'
+import zyraText from '../../assets/png/ZYRA.png'
 import { trackEvent } from '../../lib/analytics'
 
 const navItems = [
@@ -95,8 +95,8 @@ export function Header() {
               className="flex items-center gap-2 whitespace-nowrap text-[15px] font-bold tracking-[-0.03em] text-black"
               onClick={() => setMobileMenu(false)}
             >
-              <img src={logo} alt="" className="h-5 w-5 object-contain" aria-hidden="true" />
-              ZYRA
+              
+              <img src={zyraText} alt="" className=" w-[120px] object-contain" aria-hidden="true" />
             </a>
 
             <span className="hidden h-7 w-px bg-black/10 sm:block" aria-hidden="true" />

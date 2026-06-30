@@ -51,7 +51,7 @@ export default function WorkScreen() {
               industries
             </span>
             <span className="text-black/25" aria-hidden="true">·</span>
-            <span className="font-caveat text-[17px] leading-none text-[#4f4b46]">all NDA-friendly</span>
+            <span className="font-caveat text-[17px] leading-none text-[#4f4b46]">selected public work</span>
           </div>
         </motion.div>
       </section>
@@ -109,17 +109,17 @@ export default function WorkScreen() {
       </div>
 
       <section className="mx-auto max-w-[1200px] px-5 py-20 sm:px-8 lg:py-24">
-        {projects.map((project, projectIndex) => (
+        {projects.map((project) => (
           <motion.article
             key={project.id}
             id={project.id}
             className="scroll-mt-[160px]"
             initial={shouldReduceMotion ? false : { opacity: 0, y: 48 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.12 }}
+            viewport={{ once: true, amount: 0.08, margin: '0px 0px -10% 0px' }}
             transition={{
-              duration: shouldReduceMotion ? 0 : 0.95,
-              delay: shouldReduceMotion ? 0 : projectIndex * 0.18,
+              duration: shouldReduceMotion ? 0 : 0.62,
+              delay: shouldReduceMotion ? 0 : 0.04,
               ease: [0.16, 1, 0.3, 1],
             }}
           >
@@ -137,6 +137,17 @@ export default function WorkScreen() {
               </span>
             </div>
 
+            {project.href && (
+              <a
+                href={project.href}
+                target="_blank"
+                rel="noreferrer"
+                className="mt-5 inline-flex w-fit rounded-full border border-black/10 bg-white px-4 py-2 text-[11px] font-medium text-black transition hover:border-black hover:bg-black hover:text-white"
+              >
+                Visit live site ↗
+              </a>
+            )}
+
             <div className="mt-7 grid gap-7 lg:grid-cols-[1.15fr_0.85fr] lg:gap-20">
               <h2 className="max-w-[650px] text-[38px] font-semibold leading-[1.04] tracking-[-0.045em] sm:text-[52px]">
                 {project.title}
@@ -148,24 +159,41 @@ export default function WorkScreen() {
             </div>
 
             <motion.div
-              className="group mt-10 h-[360px] overflow-hidden rounded-[24px] sm:h-[540px]"
+              className="group mt-10 h-[360px] overflow-hidden rounded-[24px] p-4 sm:h-[540px] sm:p-8"
               style={{ backgroundColor: project.surface }}
               whileHover={shouldReduceMotion ? undefined : { scale: 0.995 }}
               transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
             >
-              <div className="flex items-center justify-between px-6 py-5 font-geist-mono text-[9px] uppercase tracking-[0.08em] text-[#77736e]">
+              <div className="flex items-center justify-between pb-4 font-geist-mono text-[9px] uppercase tracking-[0.08em] text-[#77736e]">
                 <span>Customer · Banking · App</span>
                 <span>Case 01 / Mobile</span>
               </div>
-              <div className="h-[calc(100%-58px)] overflow-hidden px-4 pb-4 sm:px-8 sm:pb-8">
-                <div className="h-full overflow-hidden rounded-[18px] bg-white/45 shadow-[0_22px_70px_rgba(56,91,135,0.12)] transition-transform duration-700 ease-out group-hover:scale-[1.015]">
-                  <img
-                    src={project.previewImage}
-                    alt={`${project.name} project preview`}
-                    className="h-full w-full object-cover"
-                    style={{ objectPosition: project.previewPosition }}
-                  />
-                </div>
+              <div className="h-[calc(100%-34px)]">
+                {project.href ? (
+                  <a
+                    href={project.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label={`Visit ${project.name}`}
+                    className="flex h-full items-center justify-center overflow-hidden rounded-[18px] bg-white/55 p-4 shadow-[0_22px_70px_rgba(56,91,135,0.12)] transition-transform duration-700 ease-out group-hover:scale-[1.01] sm:p-7"
+                  >
+                    <img
+                      src={project.previewImage}
+                      alt={`${project.name} project preview`}
+                      className="max-h-full max-w-full rounded-[14px] object-contain"
+                      style={{ objectPosition: project.previewPosition }}
+                    />
+                  </a>
+                ) : (
+                  <div className="flex h-full items-center justify-center overflow-hidden rounded-[18px] bg-white/55 p-4 shadow-[0_22px_70px_rgba(56,91,135,0.12)] transition-transform duration-700 ease-out group-hover:scale-[1.01] sm:p-7">
+                    <img
+                      src={project.previewImage}
+                      alt={`${project.name} project preview`}
+                      className="max-h-full max-w-full rounded-[14px] object-contain"
+                      style={{ objectPosition: project.previewPosition }}
+                    />
+                  </div>
+                )}
               </div>
             </motion.div>
 

@@ -1,4 +1,15 @@
 import projectPlaceholder from '../assets/svg/project-placeholder.svg'
+import attendMockup from '../assets/mockups/attend.png'
+import cwitoMockup from '../assets/mockups/cwito.png'
+import easyspendMockup from '../assets/mockups/easyspend.png'
+import elderopsMockup from '../assets/mockups/elderops.png'
+import enablePayMockup from '../assets/mockups/enable-pay.png'
+import exoMockup from '../assets/mockups/exo.png'
+import inscribeMockup from '../assets/mockups/inscribe.png'
+import nubaMockup from '../assets/mockups/nuba.png'
+import zestMockup from '../assets/mockups/zest.png'
+import crdbMockup from '../assets/mockups/crdb.png'
+import smartMockup from '../assets/mockups/smart.png'
 
 // ZYRA — Selected Work
 // Drop-in data module. `projectPlaceholder` is kept as the default preview image.
@@ -7,7 +18,25 @@ import projectPlaceholder from '../assets/svg/project-placeholder.svg'
 // was design + build. EasySpend was a contribution within a large dev team.
 // Metrics use real figures where the work reported them; the rest describe scope/scale.
 
-export const projects = [
+export type Project = {
+  id: string
+  index: string
+  client: string
+  name: string
+  year: string
+  href?: string
+  title: string
+  summary: string
+  detail: string
+  accent: string
+  surface: string
+  previewImage: string
+  previewPosition: string
+  metrics: [string, string][]
+  services: string[]
+}
+
+export const projects: Project[] = [
   {
     id: 'smartafcfta',
     index: '01',
@@ -21,7 +50,7 @@ export const projects = [
       'We led frontend delivery on a microfrontend architecture, shipping independently deployable UI modules engineered for maintainability and long-term extensibility across regions.',
     accent: '#2f9e7a',
     surface: '#d9f2e8',
-    previewImage: projectPlaceholder,
+    previewImage: smartMockup,
     previewPosition: '50% 50%',
     metrics: [
       ['54', 'African nations in scope'],
@@ -37,6 +66,7 @@ export const projects = [
     client: 'Supply Smart',
     name: 'EnablePay',
     year: '2026',
+    href: 'https://enablepay.africa/',
     title: 'A cross-border payments platform with USD cards and multi-currency rails.',
     summary:
       'Supply Smart needed a payments product that could move money across borders — virtual accounts, USD card issuance, and multi-currency flows — without friction for users.',
@@ -44,7 +74,7 @@ export const projects = [
       'We lead frontend development on EnablePay, building the interfaces for virtual accounts, USD card issuance, and multi-currency transaction workflows, with rendering tuned for low-bandwidth environments.',
     accent: '#0891b2',
     surface: '#d4eff5',
-    previewImage: projectPlaceholder,
+    previewImage: enablePayMockup,
     previewPosition: '50% 50%',
     metrics: [
       ['Cross-border', 'payments'],
@@ -67,7 +97,7 @@ export const projects = [
       'We architected a document management and AI-powered support platform with semantic search, intelligent response suggestions, and RBAC-enforced internal file sharing — sharpening both operational speed and support accuracy.',
     accent: '#5b5be0',
     surface: '#e4e4fb',
-    previewImage: projectPlaceholder,
+    previewImage: crdbMockup,
     previewPosition: '50% 50%',
     metrics: [
       ['Semantic', 'search engine'],
@@ -83,6 +113,7 @@ export const projects = [
     client: 'Exo-AI',
     name: 'Exo Agents',
     year: '2025',
+    href: 'https://www.exoai.tech/',
     title: 'Real-time compliance dashboards for a fleet of AI agents.',
     summary:
       'High-volume financial datasets were pushing rendering latency on compliance interfaces that traders and risk teams relied on in real time.',
@@ -90,7 +121,7 @@ export const projects = [
       'We built scalable UI systems for the Darcy, Fibonacci, and Euclid agents — driving compliance monitoring and risk analysis — and cut render latency through state normalization, memoization, and tighter component structuring.',
     accent: '#3b6fd4',
     surface: '#dde9ff',
-    previewImage: projectPlaceholder,
+    previewImage: exoMockup,
     previewPosition: '50% 50%',
     metrics: [
       ['~30%', 'Lower render latency'],
@@ -129,6 +160,7 @@ export const projects = [
     client: 'Zest',
     name: 'Zest',
     year: '2024',
+    href: 'https://zestpayment.com/',
     title: 'An AI engagement bot that cut support time and lifted retention.',
     summary:
       'Support response times were dragging and customers were churning before getting the answers they needed.',
@@ -136,7 +168,7 @@ export const projects = [
       'We built an AI-driven customer engagement bot wired into admin dashboards and knowledge systems, turning slow manual support into fast, contextual responses. This was for ZEST of Stanbic IBTC Bank, Nigeria.',
     accent: '#e8654d',
     surface: '#ffe3dc',
-    previewImage: projectPlaceholder,
+    previewImage: zestMockup,
     previewPosition: '50% 50%',
     metrics: [
       ['40%', 'Faster support response'],
@@ -152,6 +184,7 @@ export const projects = [
     client: 'Inscribe',
     name: 'Inscribe',
     year: '2023',
+    href: 'https://infinion-product-dev-inscribe.azurewebsites.net/',
     title: 'An enterprise document workflow platform, compliance-ready by design.',
     summary:
       'Enterprise teams needed approval routing, audit trails, and document generation that could stand up to compliance requirements.',
@@ -159,7 +192,7 @@ export const projects = [
       'We delivered configurable approval routing, audit tracking, recipient management, and AI-assisted document generation — wrapped in role-based workflows and dashboards built around document lifecycle management.',
     accent: '#c98a2e',
     surface: '#f7ecd6',
-    previewImage: projectPlaceholder,
+    previewImage: inscribeMockup,
     previewPosition: '50% 50%',
     metrics: [
       ['Role-based', 'approval routing'],
@@ -198,6 +231,7 @@ export const projects = [
     client: 'ElderOps',
     name: 'ElderOps',
     year: '2025',
+    href: 'https://www.elderops.net/',
     title: 'A two-sided marketplace matching US orgs with vetted remote engineers.',
     summary:
       'US organizations needed a reliable way to find and hire vetted remote technical talent without wading through noise.',
@@ -205,7 +239,7 @@ export const projects = [
       'We designed and built ElderOps end-to-end — a talent marketplace connecting U.S. organizations with vetted remote technical professionals, from matching flows through the systems behind them.',
     accent: '#6d4ad4',
     surface: '#e6dffa',
-    previewImage: projectPlaceholder,
+    previewImage: elderopsMockup,
     previewPosition: '50% 50%',
     metrics: [
       ['US', 'org clients'],
@@ -239,11 +273,12 @@ export const projects = [
     services: ['Frontend Engineering', 'AI Integration', 'UX/UI Design', 'Workflow Automation'],
   },
   {
-    id: 'attend',
+    id: 'intime',
     index: '11',
-    client: 'Attend',
-    name: 'Attend',
+    client: 'InTime',
+    name: 'InTime',
     year: '2024',
+    href: 'https://infinion-attendance-test.azurewebsites.net/',
     title: 'RBAC-secured workflows for distributed teams.',
     summary:
       'Distributed teams needed controlled, location-independent access without sacrificing security across regions.',
@@ -251,7 +286,7 @@ export const projects = [
       'We designed an RBAC-enabled workflow system with scalable role management and session-based authorization, supporting authenticated access wherever the team logged in from.',
     accent: '#2aa6a6',
     surface: '#d6f1f1',
-    previewImage: projectPlaceholder,
+    previewImage: attendMockup,
     previewPosition: '50% 50%',
     metrics: [
       ['RBAC', 'access control'],
@@ -267,6 +302,7 @@ export const projects = [
     client: 'EasySpend',
     name: 'EasySpend',
     year: '2026',
+    href: 'https://app.easyspend.cc/',
     title: 'UI engineering for a consumer spend product, shipped with a large team.',
     summary:
       'EasySpend was scaling fast with a large engineering team and needed responsive, accessible UI delivered at pace.',
@@ -274,7 +310,7 @@ export const projects = [
       'We contributed frontend development as part of a large multi-developer team, focusing on responsive layouts, performance, and WCAG-compliant patterns across the product.',
     accent: '#c026d3',
     surface: '#f6def7',
-    previewImage: projectPlaceholder,
+    previewImage: easyspendMockup,
     previewPosition: '50% 50%',
     metrics: [
       ['25%', 'Engagement lift'],
@@ -288,8 +324,9 @@ export const projects = [
     id: 'cwito',
     index: '13',
     client: 'Cwito',
-    name: 'Cwito',
+    name: 'Cwiti',
     year: '2022',
+    href: 'https://cwito.com/',
     title: 'Convert crypto to Naira, seamlessly.',
     summary:
       'Crypto holders in Nigeria needed a simple, trustworthy way to move value into Naira without friction.',
@@ -297,7 +334,7 @@ export const projects = [
       'We built a platform designed to seamlessly convert cryptocurrencies into Naira, with a focus on clear conversion states and secure transaction flows.',
     accent: '#1f9d57',
     surface: '#d6f3e2',
-    previewImage: projectPlaceholder,
+    previewImage: cwitoMockup,
     previewPosition: '50% 50%',
     metrics: [
       ['Crypto \u2192 Naira', 'conversion'],
@@ -313,6 +350,7 @@ export const projects = [
     client: 'Nuba',
     name: 'Nuba',
     year: '2025',
+    href: 'https://www.nubarewards.com/',
     title: 'A rent rewards platform for UK renters.',
     summary:
       'UK renters had nothing to show for years of on-time payments — rent was a cost with no upside.',
@@ -320,7 +358,7 @@ export const projects = [
       'We built a rent rewards platform that turns recurring rent payments into tangible rewards for users in the UK market.',
     accent: '#d6557f',
     surface: '#fce0ea',
-    previewImage: projectPlaceholder,
+    previewImage: nubaMockup,
     previewPosition: '50% 50%',
     metrics: [
       ['UK', 'market'],

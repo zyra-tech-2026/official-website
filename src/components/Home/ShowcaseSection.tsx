@@ -31,16 +31,47 @@ export function ShowcaseSection() {
         {projects.slice(0, 3).map((project) => (
           <article key={project.id}>
             <div className="mb-5">
-              <h3 className="text-lg font-semibold">{project.name}</h3>
+              <div className="flex flex-wrap items-center gap-3">
+                <h3 className="text-lg font-semibold">{project.name}</h3>
+                {project.href && (
+                  <a
+                    href={project.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="rounded-full border border-black/10 bg-white px-3 py-1 text-[10px] font-medium text-black transition hover:border-black hover:bg-black hover:text-white"
+                  >
+                    Live ↗
+                  </a>
+                )}
+              </div>
               <p className="mt-2 max-w-lg text-xs leading-6 text-muted">{project.title}</p>
             </div>
-            <div className="h-[330px] overflow-hidden rounded-[10px] sm:h-[520px]">
-              <img
-                src={project.previewImage}
-                alt={`${project.name} project preview`}
-                className="h-full w-full object-cover"
-                style={{ objectPosition: project.previewPosition }}
-              />
+            <div className="h-[330px] overflow-hidden rounded-[18px] bg-white/50 p-4 shadow-[0_18px_60px_rgba(17,17,15,0.06)] sm:h-[520px] sm:p-7">
+              {project.href ? (
+                <a
+                  href={project.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={`Visit ${project.name}`}
+                  className="flex h-full items-center justify-center overflow-hidden rounded-[14px] bg-[#f6f4ef] transition duration-700 hover:scale-[1.01]"
+                >
+                  <img
+                    src={project.previewImage}
+                    alt={`${project.name} project preview`}
+                    className="max-h-full max-w-full rounded-[12px] object-contain"
+                    style={{ objectPosition: project.previewPosition }}
+                  />
+                </a>
+              ) : (
+                <div className="flex h-full items-center justify-center overflow-hidden rounded-[14px] bg-[#f6f4ef]">
+                  <img
+                    src={project.previewImage}
+                    alt={`${project.name} project preview`}
+                    className="max-h-full max-w-full rounded-[12px] object-contain"
+                    style={{ objectPosition: project.previewPosition }}
+                  />
+                </div>
+              )}
             </div>
           </article>
         ))}

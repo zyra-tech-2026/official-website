@@ -107,7 +107,7 @@ export function HeroSection() {
               <img
                 src={orangeLine}
                 alt=""
-                className="pointer-events-none absolute -bottom-[0.08em] left-0 z-0 h-[0.2em] w-full object-fill"
+                className="pointer-events-none absolute bottom-2 left-0 z-0 h-[0.2em] w-full object-fill"
                 aria-hidden="true"
               />
             </span>
