@@ -1,128 +1,180 @@
-import { useEffect, useRef, useState } from 'react'
-import arrowDown from '../../assets/svg/arrow-down.svg'
-import orangeLine from '../../assets/svg/orange-line.svg'
-import { Header } from './Header'
-import { MockPhoto, videoWidgetSrc } from './MockPhoto'
+﻿import { useState } from 'react'
+import { trackEvent } from '../../lib/analytics'
+import heroLogo from '../../assets/png/hero-logo.png'
+import heroBackground from '../../assets/png/hero-background.png'
 
-const clamp = (value: number, min: number, max: number) => Math.min(Math.max(value, min), max)
+const links = [
+  { label: 'Home', href: '/#top' },
+  { label: 'Work', href: '/#works' },
+  { label: 'Contact', href: '/contact' },
+]
+const services = [
+  'UI/UX Design',
+  'Web Development',
+  'Mobile Development',
+  'Branding & Identity',
+  'Deployment & DevOps',
+  'Product Strategy',
+]
 
 export function HeroSection() {
-  const expandedVideoRef = useRef<HTMLDivElement>(null)
-  const [videoPosition, setVideoPosition] = useState({ x: 346, y: 88 })
-  const [hasExpandedVideoEntered, setHasExpandedVideoEntered] = useState(false)
-
-  useEffect(() => {
-    const expandedVideo = expandedVideoRef.current
-
-    if (!expandedVideo) {
-      return
-    }
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setHasExpandedVideoEntered(true)
-          observer.disconnect()
-        }
-      },
-      {
-        rootMargin: '0px 0px -18% 0px',
-        threshold: 0.22,
-      },
-    )
-
-    observer.observe(expandedVideo)
-
-    return () => observer.disconnect()
-  }, [])
-
-  const handleVideoFloat = (event: React.MouseEvent<HTMLDivElement>) => {
-    const bounds = event.currentTarget.getBoundingClientRect()
-    const videoWidth = Math.min(496, bounds.width - 32)
-    const videoHeight = videoWidth * 0.652
-    const horizontalPadding = 16
-    const verticalPadding = 16
-
-    setVideoPosition({
-      x: clamp(event.clientX - bounds.left - videoWidth / 2, horizontalPadding, bounds.width - videoWidth - horizontalPadding),
-      y: clamp(event.clientY - bounds.top - videoHeight / 2, verticalPadding, bounds.height - videoHeight - verticalPadding),
-    })
-  }
-
+  const [menuOpen, setMenuOpen] = useState(false)
   return (
-    <section id="top" className="relative bg-[#f6f4ee] pb-20">
-      <Header />
-
-      <div className="mx-auto max-w-[1200px] px-5 sm:px-8 lg:px-0">
-        <div
-          className="relative hidden h-[452px] sm:block"
-          onMouseMove={handleVideoFloat}
-          aria-label="Interactive hero video area"
-        >
-          <div
-            className="fade-up absolute z-10 aspect-[496/324] w-[min(496px,calc(100%-32px))] overflow-hidden rounded-[32px] bg-line shadow-[0_20px_60px_rgba(14,13,12,0.08)] transition-[left,top] duration-300 ease-out"
-            style={{ left: videoPosition.x, top: videoPosition.y }}
+    <section
+      id="top"
+      className="flex flex-col bg-white px-3 py-3 text-white lg:h-svh lg:px-5 lg:py-6"
+    >
+      <div className="relative isolate flex min-h-[680px] flex-col overflow-hidden rounded-[22px] bg-hero-sky lg:min-h-0 lg:flex-1">
+        <img
+          src={heroBackground}
+          alt=""
+          fetchPriority="high"
+          className="pointer-events-none absolute inset-0 -z-10 h-full w-full object-fill"
+        />
+        <header className="relative z-20 flex shrink-0 items-center justify-between px-5 py-6 lg:px-8">
+          <a
+            href="/#top"
+            className="relative block h-8 w-[120px] shrink-0 overflow-hidden"
+            aria-label="Zyra home"
           >
-            <iframe
-              src={videoWidgetSrc}
-              title="Studio process video"
-              className="h-full w-full border-0"
-              sandbox="allow-scripts allow-same-origin"
-              allowFullScreen
+            <img
+              src={heroLogo}
+              alt=""
+              className="absolute -top-[27px] -left-6 w-[168px] max-w-none"
             />
-          </div>
-
-          <div className="absolute left-0 top-[300px] flex flex-col gap-1 text-left">
-            <p className="font-['Caveat',cursive] text-[17px] text-[#8c8781]">Idea to live product &mdash;</p>
-            <img src={arrowDown} alt="" className=" w-7 h-8 " aria-hidden="true" />
-          </div>
-        </div>
-
-        <div className="fade-up pt-10 sm:hidden">
-          <div className="aspect-[496/324] overflow-hidden rounded-[25px] bg-line">
-            <MockPhoto alt="Studio process video" />
-          </div>
-        </div>
-
-        <div className="fade-up relative" style={{ animationDelay: '90ms' }}>
-          <div className="mb-[26px] inline-flex max-w-full items-center gap-2.5 overflow-hidden rounded-full border border-black/10 bg-white py-2 pl-2 pr-[18px] shadow-[0_1px_12px_rgba(14,13,12,0.03)]">
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-[#edfff4] px-2.5 py-1 text-[11.5px] font-medium text-[#2dab5f]">
-              <span className="h-1.5 w-1.5 rounded-full bg-[#2dab5f]" />
-              Now booking Q3 2025
-            </span>
-            <span className="text-[13px] text-[#2a2825]">Full-stack product studio</span>
-          </div>
-
-          <div className="absolute right-0 top-[74px] hidden flex-col items-end gap-1 whitespace-nowrap text-right sm:flex">
-            <p className="font-mono text-[13px] text-[#b9b4ad]">Est. 2026</p>
-            <p className="font-['Caveat',cursive] text-[19px] italic text-[#8c8781]">Lagos &middot; Globally</p>
-          </div>
-
-          <h1 className="max-w-[1200px] font-dm-sans text-[54px] font-semibold leading-none tracking-normal text-black sm:text-[84px] lg:text-[130px]">
-            We build digital
-            <br />
-            products that{' '}
-            <span className="relative inline-block">
-              <span className="relative z-10">work.</span>
-              <img
-                src={orangeLine}
-                alt=""
-                className="pointer-events-none absolute bottom-2 left-0 z-0 h-[0.2em] w-full object-fill"
-                aria-hidden="true"
-              />
-            </span>
+          </a>
+          <nav
+            className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-[38px] text-sm md:flex"
+            aria-label="Main navigation"
+          >
+            {links.map(({ label, href }) => (
+              <a
+                key={label}
+                href={href}
+                className="transition-opacity hover:opacity-70"
+                onClick={() =>
+                  trackEvent({
+                    name: 'nav_link_click',
+                    params: { label, destination: href },
+                  })
+                }
+              >
+                {label}
+              </a>
+            ))}
+          </nav>
+          <a
+            className="hidden items-center gap-3 rounded-full bg-black px-[19px] py-[13px] text-sm md:inline-flex"
+            href="/contact"
+          >
+            Book a Call <span aria-hidden="true">↗</span>
+          </a>
+          <button
+            className="rounded-full bg-black px-4 py-2.5 text-sm md:hidden"
+            type="button"
+            aria-expanded={menuOpen}
+            aria-controls="hero-mobile-nav"
+            onClick={() => setMenuOpen(!menuOpen)}
+          >
+            {menuOpen ? 'Close' : 'Menu'}
+          </button>
+          {menuOpen && (
+            <nav
+              id="hero-mobile-nav"
+              className="absolute top-[75px] right-5 left-5 grid rounded-2xl bg-black p-3 md:hidden"
+              aria-label="Mobile navigation"
+            >
+              {links.map(({ label, href }) => (
+                <a
+                  key={label}
+                  href={href}
+                  className="rounded-lg px-3 py-3 hover:bg-white/10"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  {label}
+                </a>
+              ))}
+              <a href="/contact" className="px-3 py-3">
+                Book a Call ↗
+              </a>
+            </nav>
+          )}
+        </header>
+        <div className="flex flex-1 flex-col items-center px-5 pt-16 pb-24 text-center md:pt-20 lg:pt-[clamp(12px,6svh,65px)] lg:pb-4">
+          <h1 className="max-w-[1000px] text-[clamp(36px,6vw,56px)] leading-[1.15] font-normal tracking-[-0.055em] lg:text-[clamp(36px,min(4.35vw,6.7svh),68px)]">
+            We create innovative digital
+            <br className="hidden md:block" /> products that deliver real value.
           </h1>
-        </div>
-
-        <div
-          ref={expandedVideoRef}
-          className={`hero-expanded-video mt-16 h-[90vh] overflow-hidden bg-transparent px-0 lg:-ml-[55px] lg:w-[calc(100%+110px)] lg:px-[60px] ${
-            hasExpandedVideoEntered ? 'is-expanded' : ''
-          }`}
-        >
-          <MockPhoto alt="Studio process video expanded" />
+          <p className="mt-[17px] max-w-[460px] text-base leading-[1.35] tracking-[-0.02em] md:text-xl lg:text-[clamp(16px,2.15svh,20px)]">
+            We don’t hand off between specialists we build
+            <br className="hidden md:block" /> with them, in the
+          </p>
+          <div className="mt-10 flex items-center justify-center gap-2 lg:mt-[clamp(20px,6.1svh,57px)]">
+            <a
+              className="inline-flex min-h-[46px] items-center justify-center rounded-full bg-button-secondary px-6 text-sm transition-colors hover:bg-button-secondary/90"
+              href="#services"
+            >
+              Learn more
+            </a>
+            <a
+              className="inline-flex min-h-[46px] items-center gap-3 rounded-full bg-orange py-[3px] pr-1 pl-[17px] text-sm transition-colors hover:bg-orange/90"
+              href="/contact"
+              onClick={() =>
+                trackEvent({
+                  name: 'cta_click',
+                  params: {
+                    cta_name: 'hero_book_a_call',
+                    destination: '/contact',
+                  },
+                })
+              }
+            >
+              Book a Call{' '}
+              <span
+                className="grid size-[38px] place-items-center rounded-full bg-black"
+                aria-hidden="true"
+              >
+                ↗
+              </span>
+            </a>
+          </div>
+          <div className="mt-10 lg:mt-[clamp(20px,4.9svh,46px)]">
+            <div className="flex justify-center pl-[18px]" aria-hidden="true">
+              {[12, 32, 11, 33, 15].map((id) => (
+                <img
+                  key={id}
+                  src={'https://i.pravatar.cc/80?img=' + id}
+                  alt=""
+                  width="52"
+                  height="52"
+                  className="-ml-[18px] size-[52px] rounded-full border-2 border-white bg-slate-300 object-cover lg:size-[clamp(38px,5.6svh,52px)]"
+                />
+              ))}
+            </div>
+            <div
+              className="mt-[18px] text-base leading-none tracking-[5px] text-rating"
+              aria-label="5 out of 5 stars"
+            >
+              ★★★★★
+            </div>
+            <p className="mt-1 text-sm">Trusted by 500+ Enterprise Users</p>
+          </div>
         </div>
       </div>
+      {/* <div
+        className="grid shrink-0 grid-cols-2 gap-x-5 gap-y-4 py-5 text-[11px] text-service-text uppercase sm:grid-cols-3 lg:h-[66px] lg:grid-cols-6 lg:items-center lg:gap-4 lg:py-0 lg:text-xs"
+        aria-label="Our services"
+      >
+        {services.map((service) => (
+          <span
+            key={service}
+            className="flex items-center gap-3 lg:justify-around lg:last:after:size-1.5 lg:last:after:shrink-0 lg:last:after:bg-orange lg:last:after:content-['']"
+          >
+            <span className="size-1.5 shrink-0 bg-orange" aria-hidden="true" />
+            <span>{service}</span>
+          </span>
+        ))}
+      </div> */}
     </section>
   )
 }

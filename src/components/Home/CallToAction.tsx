@@ -1,84 +1,47 @@
-import { motion, useReducedMotion } from 'framer-motion'
-import cursorDemo from '../../assets/vid/cursor-description.mp4'
-import callToActionImage from '../../assets/png/call-to-action.png'
-import { trackEvent } from '../../lib/analytics'
+﻿import flowerBackground from '../../assets/png/flower-bg.png'
 
 export function CallToAction() {
-  const shouldReduceMotion = useReducedMotion()
-
   return (
-    <section id="contact" className="mx-auto max-w-[1240px] px-5 pb-24 font-geist sm:px-8 lg:px-5">
-      <div className="relative flex min-h-[630px] overflow-hidden rounded-[30px] bg-[#0d0d0c] px-6 py-16 text-center text-[#f4f1eb] sm:px-10 sm:py-20">
-        <motion.div
-          className="m-auto flex w-full max-w-[820px] flex-col items-center"
-          initial={shouldReduceMotion ? false : { opacity: 0, y: 36 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.35 }}
-          transition={{ duration: shouldReduceMotion ? 0 : 0.9, ease: [0.16, 1, 0.3, 1] }}
-        >
-          <p className="inline-flex h-[28px] items-center gap-2 rounded-full border border-white/15 px-3 font-geist-mono text-[10px] uppercase tracking-[0.08em] text-white/65">
-            <span className="size-1.5 rounded-full bg-[#34b978]" aria-hidden="true" />
-            Let&apos;s build
-          </p>
-
-          <h2 className="mt-9 text-[38px] font-semibold leading-[1.18] tracking-[-0.045em] sm:text-[48px] lg:text-[50px]">
-            <span className="block text-[#918e89]">
-              Ready
-             <motion.span
-                className="relative ml-3 inline-block h-[0.95em] w-[2.45em] overflow-hidden rounded-full align-[-0.16em] ring-1 ring-white/20"
-                animate={shouldReduceMotion ? undefined : { y: [0, 4, 0], rotate: [1.5, -1, 1.5] }}
-                transition={{ duration: 6, delay: 0.5, repeat: Infinity, ease: 'easeInOut' }}
-              >
+    <section className="bg-white px-3 pb-3 lg:px-5 lg:pb-5">
+      <div className="relative isolate overflow-hidden rounded-[22px] bg-hero-sky px-6 py-14 text-white sm:px-12 sm:py-16 lg:min-h-[470px] lg:px-[72px]">
+        <img
+          src={flowerBackground}
+          alt=""
+          className="absolute inset-0 -z-10 h-full w-full object-cover object-center"
+        />
+        <div className="max-w-[720px]">
+          <div className="flex flex-wrap items-center gap-6">
+            <p className="text-sm">Trusted by 500+ Enterprise Users</p>
+            <div className="flex pl-3" aria-hidden="true">
+              {[12, 32, 11, 33, 15].map((id) => (
                 <img
-                  aria-hidden="true"
-                  className="absolute inset-0 h-full w-full object-cover"
-                  src={callToActionImage}
+                  key={id}
+                  src={`https://i.pravatar.cc/80?img=${id}`}
                   alt=""
+                  className="-ml-3 size-9 rounded-full border-2 border-white object-cover"
                 />
-              </motion.span>{" "}
-              to build
-            </span>
-            <span className="mt-2 block text-[#f4f1eb]">
-              something that matters?
-              
-
-               <motion.span
-                className="relative mx-2 inline-block h-[0.95em] w-[2.35em] overflow-hidden rounded-full align-[-0.16em] ring-1 ring-white/20"
-                animate={shouldReduceMotion ? undefined : { y: [0, -4, 0], rotate: [-1.5, 1, -1.5] }}
-                transition={{ duration: 5.5, repeat: Infinity, ease: 'easeInOut' }}
-              >
-                <video
-                  aria-hidden="true"
-                  className="absolute inset-0 h-full w-full object-cover"
-                  src={cursorDemo}
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  tabIndex={-1}
-                />
-              </motion.span>{' '}
-            </span>
+              ))}
+            </div>
+          </div>
+          <h2 className="mt-12 text-[clamp(32px,3vw,40px)] leading-[1.2] tracking-[-0.04em]">
+           Got an idea, or a build that's stuck?
           </h2>
-
-          <p className="mt-8 max-w-[550px] text-[16px] leading-[1.65] text-white/70 sm:text-[18px]">
-            Most founders we work with have tried an agency before.
-            <br className="hidden sm:block" /> This time, it&apos;s different.
+          <p className="mt-6 max-w-[450px] text-base leading-relaxed text-white/80">
+          Tell us where you are. We'll be honest about what it takes to get it live.
           </p>
-
-          <motion.a
+          <a
             href="/contact"
-            className="mt-10 inline-flex min-h-[60px] items-center justify-center rounded-full bg-white px-8 text-[16px] font-medium text-[#11110f] shadow-[0_12px_35px_rgba(0,0,0,0.2)]"
-            whileHover={shouldReduceMotion ? undefined : { scale: 1.035, y: -3 }}
-            whileTap={shouldReduceMotion ? undefined : { scale: 0.98 }}
-            transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-            onClick={() => trackEvent({ name: 'cta_click', params: { cta_name: 'cta_section_book_discovery_call', destination: '/contact' } })}
+            className="mt-8 inline-flex min-h-[46px] items-center gap-3 rounded-full bg-orange py-1 pr-1 pl-4 text-sm text-white hover:bg-orange/90"
           >
-            Book a free discovery call <span className="ml-1" aria-hidden="true">↗</span>
-          </motion.a>
-
-          <p className="mt-11 font-caveat text-[19px] text-white/75">— or, Hello@zyra.tech"</p>
-        </motion.div>
+            Book a Call{' '}
+            <span
+              className="grid size-[38px] place-items-center rounded-full bg-black"
+              aria-hidden="true"
+            >
+              ↗
+            </span>
+          </a>
+        </div>
       </div>
     </section>
   )
