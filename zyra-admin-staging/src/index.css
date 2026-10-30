@@ -1,0 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&display=swap');
+@import 'tailwindcss';
+@theme {
+  --color-orange: #fa5b02;
+  --color-ink: #11110f;
+  --color-muted: #706b68;
+  --color-line: #e4dfd6;
+  --color-surface: #faf7f6;
+  --font-sans: 'Geist', sans-serif;
+}
+body {
+  margin: 0;
+  font-family: 'Geist', sans-serif;
+  color: #11110f;
+  background: #fff;
+}
+button:not(:disabled),
+a[href] {
+  cursor: pointer;
+}

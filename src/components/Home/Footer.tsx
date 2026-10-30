@@ -1,66 +1,103 @@
-import { trackEvent } from '../../lib/analytics'
+﻿import heroLogo from '../../assets/png/hero-logo.png'
+import { NewsletterForm } from '../NewsletterForm'
 
-const footerLinks = [
-  { label: 'Home', href: '/#top' },
-  { label: 'Work', href: '/work' },
-  { label: 'Contact', href: '/contact' },
+const columns: {
+  heading: string
+  items: { label: string; href?: string; muted?: boolean; external?: boolean }[]
+}[] = [
+  {
+    heading: 'Company',
+    items: [
+      { label: 'Works', href: '/#works' },
+      { label: 'Services', href: '/#services' },
+      { label: 'Blog', href: '/blog' },
+    ],
+  },
+  {
+    heading: 'Products',
+    items: [
+      { label: 'Aisle', href:'https://aisle-app.zyra.tech/' },
+      { label: 'Refuge', href: 'https://refuge.zyra.tech/' },
+    ],
+  },
+  {
+    heading: 'Contact',
+    items: [
+      { label: 'Book a call', href: '/contact' },
+      { label: 'Hello@zyra.tech', href: 'mailto:hello@zyra.tech' },
+      { label: 'X · @zyracore', href: 'https://x.com/zyracore', external: true },
+      { label: 'Lagos, Nigeria', muted: true },
+    ],
+  },
 ]
 
 export function Footer() {
   return (
-    <footer className="mx-auto max-w-[1180px] px-5 pb-12 pt-16 font-geist sm:px-8 lg:px-0">
-      <div className="border-y border-line py-16 sm:py-20">
-        <h2 className="text-[44px] font-semibold leading-none tracking-[-0.06em] text-black sm:text-[56px] lg:text-[64px]">
-          Design. Build. Scale.
-        </h2>
-
-        <div className="mt-20 flex flex-col gap-12 sm:flex-row sm:items-end sm:justify-between">
-          <nav className="flex gap-10 text-[15px] text-[#77736e]">
-            {footerLinks.map(({ label, href }) => (
-              <a
-                key={label}
-                href={href}
-                className="transition hover:text-black"
-                onClick={() =>
-                  trackEvent({
-                    name: 'nav_link_click',
-                    params: { label: `footer_${label.toLowerCase()}`, destination: href },
-                  })
-                }
-              >
-                {label}
-              </a>
-            ))}
-          </nav>
-
-          <div className="flex flex-col items-start gap-4 sm:items-end">
-            {/* <a
+    <footer className="bg-white px-3 pb-3 lg:px-5 lg:pb-5">
+      <div className="rounded-[22px] bg-about-dark px-6 py-12 text-white sm:px-12 lg:rounded-[32px] lg:px-16 lg:py-14">
+        <div className="grid gap-12 lg:grid-cols-[1fr_auto] lg:gap-16">
+          <div>
+            <a
               href="/#top"
-              aria-label="ZYRA home"
-              className="inline-flex w-fit items-center transition hover:-translate-y-0.5"
-              onClick={() =>
-                trackEvent({
-                  name: 'nav_link_click',
-                  params: { label: 'footer_logo', destination: '/#top' },
-                })
-              }
+              aria-label="Zyra home"
+              className="relative block h-8 w-[120px] overflow-hidden"
             >
               <img
-                src={zyraFullLogo}
-                alt="ZYRA - Software that empowers"
-                className="w-[108px] object-contain sm:w-[124px]"
+                src={heroLogo}
+                alt=""
+                className="absolute -top-[27px] -left-6 w-[168px] max-w-none"
               />
-            </a> */}
-            <p className="font-geist-mono text-[13px] tracking-[0.08em] text-[#77736e]">
-              We build things that ship.
+            </a>
+            <p className="mt-6 max-w-[540px] text-sm leading-relaxed text-[#F8F5F0] ">
+              Seamlessly adjust to evolving demands and expand your capabilities
+              with our adaptable platform, crafted to fuel your enterprise’s
+              success.
             </p>
+            <p className="mt-9 text-sm text-white/90">
+              Get our build notes: one email a month, with nothing you’d skip.
+            </p>
+            <div className="mt-4 max-w-[432px]">
+              <NewsletterForm dark />
+            </div>
+          </div>
+          <div className="grid grid-cols-2 gap-x-10 gap-y-10 sm:grid-cols-3 lg:gap-x-16">
+            {columns.map(({ heading, items }) => (
+              <div key={heading}>
+                <h2 className="text-sm text-white/50">{heading}</h2>
+                <ul className="mt-5 space-y-4 text-base">
+                  {items.map(({ label, href, muted, external }) => (
+                    <li key={label} className={muted ? 'text-white/50' : ''}>
+                      {href ? (
+                        <a
+                          className="transition-colors hover:text-orange"
+                          href={href}
+                          {...(external
+                            ? { target: '_blank', rel: 'noopener noreferrer' }
+                            : {})}
+                        >
+                          {label}
+                        </a>
+                      ) : (
+                        <span>{label}</span>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
           </div>
         </div>
-      </div>
-
-      <div className="mt-16 flex flex-col gap-6 text-[13px] text-[#77736e] sm:flex-row sm:items-center sm:justify-between">
-        <p>&copy; 2026 ZYRA. All rights reserved.</p>
-        <p className="font-caveat text-[20px] text-[#77736e]">The next great product is yours.</p>
+        <div className="mt-12 flex flex-col gap-3 border-t border-white/10 pt-8 text-sm text-white/50 sm:flex-row sm:items-center sm:justify-between">
+          <p>© {new Date().getFullYear()} ZYRA CORE LTD. All rights reserved.</p>
+          <div className="flex gap-4">
+            <a className="hover:text-white" href="/privacy-policy">
+              Privacy policy
+            </a>
+            <a className="hover:text-white" href="/terms-and-conditions">
+              Terms of service
+            </a>
+          </div>
+        </div>
       </div>
     </footer>
   )

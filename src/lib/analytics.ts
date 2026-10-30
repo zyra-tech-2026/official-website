@@ -37,6 +37,7 @@ let initialized = false
  * Injects the gtag loader script and fires the initial page_view.
  */
 export function initializeAnalytics(): void {
+  if (/^\/unsubscribe(?:\/|$)/.test(window.location.pathname)) return
   if (!isEnabled || initialized) return
 
   // Dynamically inject the gtag loader so it is never downloaded in dev

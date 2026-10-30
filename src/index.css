@@ -6,7 +6,19 @@
   --color-ink: #11110f;
   --color-muted: #8f8b82;
   --color-line: #e4dfd6;
-  --color-orange: #f2762e;
+  --color-orange: #FA5B02;
+  --color-button-secondary: #4E6985;
+  --color-hero-sky: #075095;
+  --color-rating: #ff9b00;
+  --color-service-text: #777;
+  --color-about-muted: #ccc6c1;
+  --color-about-avatar: #CFC8C1;
+  --color-about-copy: #706b68;
+  --color-about-card: #faf7f6;
+  --color-about-dark: #0d0d0d;
+  --color-process-active: #191918;
+  --color-work-image: #ebe9e8;
+  --color-work-tag: #f0eeed;
   --font-sans: "Geist", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --font-geist: "Geist", ui-sans-serif, sans-serif;
   --font-geist-mono: "Geist Mono", ui-monospace, monospace;
@@ -19,7 +31,7 @@
 }
 
 html {
-  background: #f4f1eb;
+  background: #fff;
   color: #11110f;
   scroll-behavior: smooth;
 }
@@ -39,6 +51,12 @@ a {
   font: inherit;
 }
 
+button:not(:disabled),
+a[href],
+[role="button"]:not([aria-disabled="true"]) {
+  cursor: pointer;
+}
+
 .custom-cursor {
   display: none;
 }
@@ -48,13 +66,6 @@ a {
 }
 
 @media (pointer: fine) {
-  html,
-  body,
-  button,
-  a {
-    cursor: none;
-  }
-
   /* Trailing ring — lags behind the dot via JS spring interpolation */
   /* mix-blend-mode: difference makes it auto-contrast against any surface per pixel */
   .custom-cursor {

@@ -38,6 +38,31 @@ export type Project = {
 
 export const projects: Project[] = [
   {
+  id: 'refuge',
+  index: '00',
+  client: 'ZYRA Core',
+  name: 'Refuge',
+  year: '2026',
+  href: 'https://refuge.zyra.tech/',
+  title: 'A personal safety app that gets help moving in one tap, even when the internet drops.',
+  summary:
+    'In an emergency, people need to raise the alarm fast and make sure the right people know where they are. We built Refuge so one tap alerts trusted contacts and responders, and keeps working when connectivity fails.',
+  detail:
+    'We designed and built Refuge end to end: the iOS and Android apps, emergency alert flows, live location sharing with trusted contacts, an offline SMS fallback that names the nearest help, push notifications, and in-app subscriptions on both the App Store and Google Play.',
+  accent: '#EF0D28',
+  surface: '#fde4e8',
+  previewImage: cwitoMockup,
+  previewPosition: '50% 50%',
+  metrics: [
+    ['One-tap', 'emergency alerts'],
+    ['Offline', 'SMS fallback'],
+    ['Live', 'location sharing'],
+    ['iOS + Android', 'subscriptions'],
+  ],
+  services: ['Mobile Engineering', 'Product Design', 'Emergency Systems', 'Offline-first', 'Push Notifications', 'In-App Subscriptions'],
+},
+
+  {
     id: 'smartafcfta',
     index: '01',
     client: 'African Union',
@@ -82,7 +107,7 @@ export const projects: Project[] = [
       ['Multi-currency', 'workflows'],
       ['Virtual', 'accounts'],
     ],
-    services: ['Frontend Engineering', 'Component Library', 'Performance', 'API Integration', 'Payments UI'],
+    services: ['Web3', 'Frontend Engineering', 'Component Library', 'Performance', 'API Integration', 'Payments UI'],
   },
   {
     id: 'invoq',
@@ -92,7 +117,7 @@ export const projects: Project[] = [
     year: '2024',
     title: 'An AI support platform for one of Tanzania\u2019s largest banks.',
     summary:
-      'CRDB Bank needed internal teams to find documents and answers fast, without compromising on access control or data security.',
+      'CRDB Bank of Tanzania needed internal teams to find documents and answers fast, without compromising on access control or data security.',
     detail:
       'We architected a document management and AI-powered support platform with semantic search, intelligent response suggestions, and RBAC-enforced internal file sharing — sharpening both operational speed and support accuracy.',
     accent: '#5b5be0',
@@ -353,7 +378,7 @@ export const projects: Project[] = [
     href: 'https://www.nubarewards.com/',
     title: 'A rent rewards platform for UK renters.',
     summary:
-      'UK renters had nothing to show for years of on-time payments — rent was a cost with no upside.',
+      'UK renters had nothing to show for years of on-time payments — rent was a cost with no upside. With Nuba you earn rewards for paying rent, and redeem them for real-world perks. Nuba Raised £320,000 in pre-seed funding led by SFC Capital in October 2026.',
     detail:
       'We built a rent rewards platform that turns recurring rent payments into tangible rewards for users in the UK market.',
     accent: '#d6557f',

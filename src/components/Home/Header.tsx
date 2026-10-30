@@ -5,7 +5,8 @@ import { trackEvent } from '../../lib/analytics'
 
 const navItems = [
   { label: 'Home', href: '/#top' },
-  { label: 'Work', href: '/work' },
+  { label: 'Work', href: '/#works' },
+  { label: 'Blog', href: '/blog' },
   { label: 'Contact', href: '/contact' },
 ]
 
@@ -15,6 +16,7 @@ export function Header() {
   const lastScrollY = useRef(0)
   const menuOpenRef = useRef(false)
   const shouldReduceMotion = useReducedMotion()
+  const currentPath = window.location.pathname
 
   const setMobileMenu = (isOpen: boolean) => {
     menuOpenRef.current = isOpen
@@ -65,7 +67,7 @@ export function Header() {
     }
 
     const handleResize = () => {
-      if (window.innerWidth >= 640) {
+      if (window.innerWidth >= 768) {
         setMobileMenu(false)
       }
     }
@@ -81,50 +83,81 @@ export function Header() {
 
   return (
     <>
-      <div className="h-[76px] sm:h-[84px]" aria-hidden="true" />
+      <div className="h-[72px] md:h-[84px]" aria-hidden="true" />
       <header
-        className={`fixed inset-x-0 top-0 z-[100] flex w-full justify-center px-4 py-4 transition-[transform,opacity] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] will-change-transform sm:py-5 ${
-          isVisible || isMenuOpen ? 'translate-y-0 opacity-100' : 'pointer-events-none -translate-y-full opacity-0'
+        className={`fixed inset-x-0 top-0 z-[100] w-full bg-white/95 backdrop-blur transition-[transform,opacity] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] will-change-transform ${
+          isVisible || isMenuOpen
+            ? 'translate-y-0 opacity-100'
+            : 'pointer-events-none -translate-y-full opacity-0'
         }`}
         onFocusCapture={() => setIsVisible(true)}
       >
-        <div className="relative w-full max-w-[420px] sm:w-auto sm:max-w-none">
-          <div className="flex w-full items-center justify-between gap-4 rounded-full border border-black/10 bg-white py-2 pl-4 pr-2 shadow-[0_18px_45px_rgba(14,13,12,0.14)] sm:w-auto sm:gap-7 sm:px-5">
+        <div className="relative px-5 md:px-10 lg:px-12">
+          <div className="relative flex h-[72px] w-full items-center justify-between gap-4 md:h-[84px]">
             <a
               href="/#top"
-              className="flex items-center gap-2 whitespace-nowrap text-[15px] font-bold tracking-[-0.03em] text-black"
+              aria-label="Zyra home"
+              className="flex items-center"
               onClick={() => setMobileMenu(false)}
             >
-              
-              <img src={zyraText} alt="" className=" w-[120px] object-contain" aria-hidden="true" />
+              <img
+                src={zyraText}
+                alt=""
+                className="w-[110px] object-contain md:w-[120px]"
+                aria-hidden="true"
+              />
             </a>
 
-            <span className="hidden h-7 w-px bg-black/10 sm:block" aria-hidden="true" />
-
-            <nav className="hidden items-center gap-8 text-[15px] font-medium text-[#1d1d1d] sm:flex">
-              {navItems.map((item) => (
-                <a
-                  key={item.label}
-                  href={item.href}
-                  className="rounded-full px-4 py-3 text-[#1d1d1d] transition-colors hover:bg-black hover:text-white focus-visible:bg-black focus-visible:text-white focus-visible:outline-none"
-                  onClick={() => trackEvent({ name: 'nav_link_click', params: { label: item.label, destination: item.href } })}
-                >
-                  {item.label}
-                </a>
-              ))}
+            <nav
+              className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-10 text-sm md:flex"
+              aria-label="Main navigation"
+            >
+              {navItems.map((item) => {
+                const active = item.href !== '/#top' && item.href !== '/#works' && currentPath.startsWith(item.href)
+                return (
+                  <a
+                    key={item.label}
+                    href={item.href}
+                    aria-current={active ? 'page' : undefined}
+                    className={`transition-colors hover:text-orange focus-visible:text-orange focus-visible:outline-none ${active ? 'text-orange' : 'text-ink'}`}
+                    onClick={() =>
+                      trackEvent({
+                        name: 'nav_link_click',
+                        params: { label: item.label, destination: item.href },
+                      })
+                    }
+                  >
+                    {item.label}
+                  </a>
+                )
+              })}
             </nav>
 
             <a
               href="/contact"
-              className="hidden whitespace-nowrap rounded-full bg-[#111111] px-5 py-3 text-[15px] font-medium text-white focus-visible:outline-none sm:inline-flex"
-              onClick={() => trackEvent({ name: 'cta_click', params: { cta_name: 'header_book_a_call', destination: '/contact' } })}
+              className="hidden min-h-[46px] items-center gap-3 rounded-full bg-about-dark py-1 pr-1 pl-4 text-sm whitespace-nowrap text-white focus-visible:outline-none md:inline-flex"
+              onClick={() =>
+                trackEvent({
+                  name: 'cta_click',
+                  params: {
+                    cta_name: 'header_book_a_call',
+                    destination: '/contact',
+                  },
+                })
+              }
             >
-              Book a Call ↗
+              Book a call
+              <span
+                className="grid size-[38px] place-items-center rounded-full bg-orange"
+                aria-hidden="true"
+              >
+                ↗
+              </span>
             </a>
 
             <button
               type="button"
-              className="grid size-11 place-items-center rounded-full bg-[#111111] text-white sm:hidden"
+              className="grid size-11 place-items-center rounded-full bg-[#111111] text-white md:hidden"
               aria-expanded={isMenuOpen}
               aria-controls="mobile-navigation"
               aria-label={isMenuOpen ? 'Close navigation' : 'Open navigation'}
@@ -149,12 +182,23 @@ export function Header() {
             {isMenuOpen && (
               <motion.nav
                 id="mobile-navigation"
-                className="absolute inset-x-0 top-[calc(100%+10px)] overflow-hidden rounded-[26px] border border-black/10 bg-white p-3 shadow-[0_24px_65px_rgba(14,13,12,0.18)] sm:hidden"
+                className="absolute inset-x-3 top-[calc(100%+4px)] overflow-hidden rounded-[26px] border border-black/10 bg-white p-3 shadow-[0_24px_65px_rgba(14,13,12,0.18)] md:hidden"
                 aria-label="Mobile navigation"
-                initial={shouldReduceMotion ? false : { opacity: 0, y: -12, scale: 0.97 }}
+                initial={
+                  shouldReduceMotion
+                    ? false
+                    : { opacity: 0, y: -12, scale: 0.97 }
+                }
                 animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={shouldReduceMotion ? undefined : { opacity: 0, y: -8, scale: 0.98 }}
-                transition={{ duration: shouldReduceMotion ? 0 : 0.3, ease: [0.16, 1, 0.3, 1] }}
+                exit={
+                  shouldReduceMotion
+                    ? undefined
+                    : { opacity: 0, y: -8, scale: 0.98 }
+                }
+                transition={{
+                  duration: shouldReduceMotion ? 0 : 0.3,
+                  ease: [0.16, 1, 0.3, 1],
+                }}
               >
                 {navItems.map((item, index) => (
                   <a
@@ -165,11 +209,16 @@ export function Header() {
                     }`}
                     onClick={() => {
                       setMobileMenu(false)
-                      trackEvent({ name: 'nav_link_click', params: { label: item.label, destination: item.href } })
+                      trackEvent({
+                        name: 'nav_link_click',
+                        params: { label: item.label, destination: item.href },
+                      })
                     }}
                   >
                     {item.label}
-                    <span className="text-black/35" aria-hidden="true">↗</span>
+                    <span className="text-black/35" aria-hidden="true">
+                      ↗
+                    </span>
                   </a>
                 ))}
 
@@ -179,7 +228,13 @@ export function Header() {
                   className="mt-2 flex min-h-12 items-center justify-center rounded-[16px] bg-[#111111] px-5 text-[15px] font-medium text-white transition-colors hover:bg-[#FF7B00] hover:text-white focus-visible:bg-[#FF7B00] focus-visible:text-white focus-visible:outline-none active:text-white visited:text-white"
                   onClick={() => {
                     setMobileMenu(false)
-                    trackEvent({ name: 'cta_click', params: { cta_name: 'mobile_book_a_call', destination: '/contact' } })
+                    trackEvent({
+                      name: 'cta_click',
+                      params: {
+                        cta_name: 'mobile_book_a_call',
+                        destination: '/contact',
+                      },
+                    })
                   }}
                 >
                   Book a Call ↗
