@@ -6,6 +6,7 @@ import heroBackground from '../../assets/png/hero-background.png'
 const links = [
   { label: 'Home', href: '/#top' },
   { label: 'Work', href: '/#works' },
+  { label: 'Blog', href: '/blog' },
   { label: 'Contact', href: '/contact' },
 ]
 const services = [
@@ -70,13 +71,25 @@ export function HeroSection() {
             Book a Call <span aria-hidden="true">↗</span>
           </a>
           <button
-            className="rounded-full bg-black px-4 py-2.5 text-sm md:hidden"
+            className="grid size-11 place-items-center rounded-full bg-black md:hidden"
             type="button"
             aria-expanded={menuOpen}
             aria-controls="hero-mobile-nav"
+            aria-label={menuOpen ? 'Close navigation' : 'Open navigation'}
             onClick={() => setMenuOpen(!menuOpen)}
           >
-            {menuOpen ? 'Close' : 'Menu'}
+            <span className="relative block h-4 w-5" aria-hidden="true">
+              <span
+                className={`absolute left-0 top-1 h-px w-5 bg-current transition-transform duration-300 ${
+                  menuOpen ? 'translate-y-[3px] rotate-45' : ''
+                }`}
+              />
+              <span
+                className={`absolute bottom-1 left-0 h-px w-5 bg-current transition-transform duration-300 ${
+                  menuOpen ? '-translate-y-[3px] -rotate-45' : ''
+                }`}
+              />
+            </span>
           </button>
           {menuOpen && (
             <nav
@@ -105,9 +118,9 @@ export function HeroSection() {
             We create innovative digital
             <br className="hidden md:block" /> products that deliver real value.
           </h1>
-          <p className="mt-[17px] max-w-[460px] text-base leading-[1.35] tracking-[-0.02em] md:text-xl lg:text-[clamp(16px,2.15svh,20px)]">
-            We don’t hand off between specialists we build
-            <br className="hidden md:block" /> with them, in the
+          <p className="mt-[17px] max-w-[520px] text-base leading-[1.35] tracking-[-0.02em] md:text-xl lg:text-[clamp(16px,2.15svh,20px)]">
+           Whether you’re starting from scratch, stuck on a failing build, or unsure what your business needs online, ZYRA gets you to a working product fast.
+            {/* <br className="hidden md:block" /> with them, in the */}
           </p>
           <div className="mt-10 flex items-center justify-center gap-2 lg:mt-[clamp(20px,6.1svh,57px)]">
             <a

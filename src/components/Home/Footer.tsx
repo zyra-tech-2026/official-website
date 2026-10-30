@@ -3,7 +3,13 @@ import { NewsletterForm } from '../NewsletterForm'
 
 const columns: {
   heading: string
-  items: { label: string; href?: string; muted?: boolean; external?: boolean }[]
+  items: {
+    label: string
+    href?: string
+    muted?: boolean
+    external?: boolean
+    badge?: string
+  }[]
 }[] = [
   {
     heading: 'Company',
@@ -16,8 +22,8 @@ const columns: {
   {
     heading: 'Products',
     items: [
-      { label: 'Aisle', href:'https://aisle-app.zyra.tech/' },
-      { label: 'Refuge', href: 'https://refuge.zyra.tech/' },
+      { label: 'Aisle', badge: 'Coming soon' },
+      { label: 'Refuge', href: 'https://refuge.zyra.tech/', external: true },
     ],
   },
   {
@@ -65,7 +71,7 @@ export function Footer() {
               <div key={heading}>
                 <h2 className="text-sm text-white/50">{heading}</h2>
                 <ul className="mt-5 space-y-4 text-base">
-                  {items.map(({ label, href, muted, external }) => (
+                  {items.map(({ label, href, muted, external, badge }) => (
                     <li key={label} className={muted ? 'text-white/50' : ''}>
                       {href ? (
                         <a
@@ -77,6 +83,16 @@ export function Footer() {
                         >
                           {label}
                         </a>
+                      ) : badge ? (
+                        <span
+                          aria-disabled="true"
+                          className="flex cursor-not-allowed items-center gap-2 text-white/50"
+                        >
+                          {label}
+                          <span className="rounded-full bg-white/10 px-2 py-0.5 text-[11px] text-white/70">
+                            {badge}
+                          </span>
+                        </span>
                       ) : (
                         <span>{label}</span>
                       )}
