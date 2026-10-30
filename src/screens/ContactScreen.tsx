@@ -170,9 +170,9 @@ export default function ContactScreen() {
           </fieldset>
 
           <div className="mt-10 flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
-            <p className="text-sm text-about-copy">
+            {/* <p className="text-sm text-about-copy">
               We only use your details to reply. Happy to sign an NDA first.
-            </p>
+            </p> */}
             <button
               type="submit"
               disabled={isPending}

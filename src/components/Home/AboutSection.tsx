@@ -30,9 +30,9 @@ export function AboutSection() {
           <br className="hidden sm:block" /> delivers{' '}
           <span className="inline-flex size-[0.85em] items-end justify-center overflow-hidden rounded-full bg-about-avatar align-[-0.05em]">
             <img
-              src={headingAvatar}
+              src="https://res.cloudinary.com/da1bee2hs/image/upload/v1793362157/afcc534d0b082179d4d558082cdf0a4a14f9a400_wugpyo.jpg"
               alt=""
-              className="h-full w-full object-contain"
+              className="h-full w-full rounded-full object-cover"
             />
           </span>{' '}
           <span className="text-about-muted">exceptional</span> results.
