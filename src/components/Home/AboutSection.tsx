@@ -27,7 +27,7 @@ export function AboutSection() {
             />
           </span>{' '}
           <span className="text-about-muted">and</span>
-          <br className="hidden sm:block" /> delivers{' '}
+          <br className="hidden sm:block" /> deliver{' '}
           <span className="inline-flex size-[0.85em] items-end justify-center overflow-hidden rounded-full bg-about-avatar align-[-0.05em]">
             <img
               src="https://res.cloudinary.com/da1bee2hs/image/upload/v1793362157/afcc534d0b082179d4d558082cdf0a4a14f9a400_wugpyo.jpg"

@@ -1,4 +1,5 @@
 import projectPlaceholder from '../assets/svg/project-placeholder.svg'
+import alatMockup from '../assets/mockups/alat.png'
 import attendMockup from '../assets/mockups/attend.png'
 import cwitoMockup from '../assets/mockups/cwito.png'
 import easyspendMockup from '../assets/mockups/easyspend.png'
@@ -7,6 +8,7 @@ import enablePayMockup from '../assets/mockups/enable-pay.png'
 import exoMockup from '../assets/mockups/exo.png'
 import inscribeMockup from '../assets/mockups/inscribe.png'
 import nubaMockup from '../assets/mockups/nuba.png'
+import refugeMockup from '../assets/mockups/refuge.png'
 import zestMockup from '../assets/mockups/zest.png'
 import crdbMockup from '../assets/mockups/crdb.png'
 import smartMockup from '../assets/mockups/smart.png'
@@ -34,11 +36,23 @@ export type Project = {
   previewPosition: string
   metrics: [string, string][]
   services: string[]
+  // Homepage showcase card. Each falls back to a value derived from the fields above.
+  cardTitle?: string
+  tags?: string[]
+  points?: string[]
 }
 
 export const projects: Project[] = [
   {
   id: 'refuge',
+  cardTitle: 'Refuge - One-tap personal safety that works offline',
+  tags: ['Safety', 'Mobile', 'Offline-first'],
+  points: [
+    'One-tap alerts to trusted contacts and responders',
+    'Live location sharing with trusted contacts',
+    'Offline SMS fallback that names the nearest help',
+    'In-app subscriptions on iOS and Android',
+  ],
   index: '00',
   client: 'ZYRA Core',
   name: 'Refuge',
@@ -51,7 +65,7 @@ export const projects: Project[] = [
     'We designed and built Refuge end to end: the iOS and Android apps, emergency alert flows, live location sharing with trusted contacts, an offline SMS fallback that names the nearest help, push notifications, and in-app subscriptions on both the App Store and Google Play.',
   accent: '#EF0D28',
   surface: '#fde4e8',
-  previewImage: cwitoMockup,
+  previewImage: refugeMockup,
   previewPosition: '50% 50%',
   metrics: [
     ['One-tap', 'emergency alerts'],
@@ -111,6 +125,14 @@ export const projects: Project[] = [
   },
   {
     id: 'invoq',
+    cardTitle: 'Invoq - AI support for a major Tanzanian bank',
+    tags: ['Banking', 'AI', 'Enterprise'],
+    points: [
+      'Semantic search across internal documents',
+      'AI-powered response suggestions',
+      'RBAC-enforced internal file sharing',
+      'Built for CRDB Bank, Tanzania',
+    ],
     index: '03',
     client: 'CRDB Bank — Tanzania',
     name: 'Invoq',
@@ -134,6 +156,14 @@ export const projects: Project[] = [
   },
   {
     id: 'exo-agents',
+    cardTitle: 'EXO Agents - High-volume financial datasets',
+    tags: ['Fintech', 'Real-time', 'Compliance'],
+    points: [
+      'Rendering latency was increasing',
+      'Compliance interfaces were affected',
+      'Traders and risk teams relied on them in real time',
+      'Reliability practices that reduce operational risk',
+    ],
     index: '04',
     client: 'Exo-AI',
     name: 'Exo Agents',
@@ -181,6 +211,14 @@ export const projects: Project[] = [
   },
   {
     id: 'zest',
+    cardTitle: 'Zest - An AI engagement bot for faster support',
+    tags: ['Fintech', 'AI', 'Support'],
+    points: [
+      '40% faster support response',
+      '25% increase in retention',
+      'Wired into admin dashboards and knowledge systems',
+      'Built for ZEST of Stanbic IBTC Bank, Nigeria',
+    ],
     index: '06',
     client: 'Zest',
     name: 'Zest',
@@ -252,6 +290,14 @@ export const projects: Project[] = [
   },
   {
     id: 'elderops',
+    cardTitle: 'ElderOps - A marketplace for vetted remote engineers',
+    tags: ['Marketplace', 'Design + Build', 'Hiring'],
+    points: [
+      'Two-sided marketplace for US organizations',
+      'Vetted remote technical professionals',
+      'Matching flows designed and built end to end',
+      'Product design and engineering by ZYRA',
+    ],
     index: '09',
     client: 'ElderOps',
     name: 'ElderOps',
@@ -371,6 +417,14 @@ export const projects: Project[] = [
   },
   {
     id: 'nuba',
+    cardTitle: 'Nuba - Rewards for paying rent',
+    tags: ['Fintech', 'Rewards', 'Consumer'],
+    points: [
+      'UK renters had nothing to show for on-time rent',
+      'Earn rewards every time you pay rent',
+      'Redeem rewards for real-world perks',
+      'Raised £320,000 pre-seed, led by SFC Capital',
+    ],
     index: '14',
     client: 'Nuba',
     name: 'Nuba',
@@ -395,10 +449,19 @@ export const projects: Project[] = [
   },
   {
     id: 'alat',
+    cardTitle: 'ALAT - Redesigning Nigeria’s digital banking',
+    tags: ['Banking', 'Product Design', 'Mobile'],
+    points: [
+      'Redesigned key journeys in the mobile app',
+      'Simplified complex banking flows',
+      'Scalable interface patterns',
+      'Worked across product, engineering and stakeholders',
+    ],
     index: '15',
     client: 'Wema Bank',
     name: 'ALAT',
     year: '2024',
+    href: 'https://alat.ng/',
     title: 'Redesigning Nigeria’s leading digital banking experience.',
     summary:
       'Worked with product managers, engineers, and stakeholders to redesign key experiences for the next generation of the ALAT mobile banking app.',
@@ -406,7 +469,7 @@ export const projects: Project[] = [
       'Led product design across customer journeys, improving usability, simplifying complex banking flows, and creating scalable interface patterns aligned with business and user goals.',
     accent: '#8A1C7C',
     surface: '#F5E6F2',
-    previewImage: projectPlaceholder,
+    previewImage: alatMockup,
     previewPosition: '50% 50%',
     metrics: [
       ['Digital', 'banking'],
