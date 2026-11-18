@@ -32,6 +32,7 @@ const columns: {
       { label: 'Book a call', href: '/contact' },
       { label: 'Hello@zyra.tech', href: 'mailto:hello@zyra.tech' },
       { label: 'X · @zyracore', href: 'https://x.com/zyracore', external: true },
+      { label: 'Instagram · @zyracore_ltd', href: 'https://www.instagram.com/zyracore_ltd?hvrq=MXh6dnljeHlvbjhxcA==', external: true },
       { label: 'Lagos, Nigeria', muted: true },
     ],
   },
